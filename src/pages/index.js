@@ -28,6 +28,8 @@ class Home extends Component {
   state = {
     babelLoaded: false,
     isLogin: false,
+    isAdmin: false,
+    isUser: false,
   };
 
   componentDidMount() {
@@ -168,117 +170,7 @@ class Home extends Component {
             </div>
           </header>
           <BuyerListingPage />
-          <Container>
-            <div css={sharedStyles.markdown}>
-              <section
-                css={[
-                  sectionStyles,
-                  {
-                    [media.lessThan('medium')]: {
-                      marginTop: 0,
-                      marginBottom: 0,
-                      overflowX: 'auto',
-                      paddingTop: 30,
-                      WebkitOverflowScrolling: 'touch',
-                      position: 'relative',
-                      maskImage:
-                        'linear-gradient(to right, transparent, white 10px, white 90%, transparent)',
-                    },
-                  },
-                ]}>
-                <div
-                  css={{
-                    display: 'flex',
-                    flexDirection: 'row',
 
-                    [media.lessThan('medium')]: {
-                      display: 'block',
-                      whiteSpace: 'nowrap',
-                    },
-                  }}>
-                  {marketing.edges.map(({node: column}, index) => (
-                    <div
-                      key={index}
-                      css={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        flex: '0 1 33%',
-                        marginLeft: 40,
-
-                        '&:first-of-type': {
-                          marginLeft: 0,
-
-                          [media.lessThan('medium')]: {
-                            marginLeft: 10,
-                          },
-                        },
-
-                        [media.lessThan('medium')]: {
-                          display: 'inline-block',
-                          verticalAlign: 'top',
-                          marginLeft: 0,
-                          whiteSpace: 'normal',
-                          width: '75%',
-                          marginRight: 20,
-                          paddingBottom: 40,
-
-                          '&:first-of-type': {
-                            marginTop: 0,
-                          },
-                        },
-                      }}>
-                      <h3
-                        css={[
-                          headingStyles,
-                          {
-                            '&&': {
-                              // Make specificity higher than the site-wide h3 styles.
-                              color: colors.subtle,
-                              paddingTop: 0,
-                              fontWeight: 300,
-                              fontSize: 20,
-
-                              [media.greaterThan('xlarge')]: {
-                                fontSize: 24,
-                              },
-                            },
-                          },
-                        ]}>
-                        {column.frontmatter.title}
-                      </h3>
-                      <div dangerouslySetInnerHTML={{__html: column.html}} />
-                    </div>
-                  ))}
-                </div>
-              </section>
-              <hr
-                css={{
-                  height: 1,
-                  marginBottom: -1,
-                  border: 'none',
-                  borderBottom: `1 solid ${colors.divider}`,
-                }}
-              />
-              <section css={sectionStyles}>
-                <div id="examples">
-                  {examples.edges.map(({node}, index) => {
-                    const snippet = code[node.fileAbsolutePath];
-                    return (
-                      <CodeExample
-                        key={index}
-                        id={snippet.id}
-                        code={snippet.code}
-                        containerNodeID={node.frontmatter.domid}
-                        loaded={babelLoaded}>
-                        <h3 css={headingStyles}>{node.frontmatter.title}</h3>
-                        <div dangerouslySetInnerHTML={{__html: node.html}} />
-                      </CodeExample>
-                    );
-                  })}
-                </div>
-              </section>
-            </div>
-          </Container>
           <section
             css={{
               background: colors.dark,
