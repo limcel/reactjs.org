@@ -79,6 +79,7 @@ class Home extends Component {
           title="React &ndash; A JavaScript library for building user interfaces"
           ogUrl={createOgUrl('index.html')}
         />
+        <Button onClick={printAllItems}>Hi</Button>
         <div css={{width: '100%'}}>
           <header css={{}}>
             <div
