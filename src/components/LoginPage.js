@@ -87,7 +87,6 @@ class LoginPage extends Component {
               className={classes.submit}
               onClick={() => {
                 handleLogin();
-                console.log('this is clicked');
               }}>
               Login
             </Button>

@@ -23,6 +23,7 @@ import LoginPage from 'components/LoginPage';
 import bannerImage from '../images/apple_items.jpg';
 import {white} from 'ansi-colors';
 import BuyerListingPage from 'components/BuyerListingPage';
+import {searchForItems} from 'api/axios';
 
 class Home extends Component {
   state = {
@@ -58,6 +59,15 @@ class Home extends Component {
       isLogin: false,
     });
   }
+  async printAllItems() {
+    console.log('function call');
+    try {
+      console.log(await searchForItems('Earphones'));
+      console.log('function called');
+    } catch (e) {
+      console.log(e.response);
+    }
+  }
 
   render() {
     const {babelLoaded} = this.state;
@@ -78,7 +88,7 @@ class Home extends Component {
           title="React &ndash; A JavaScript library for building user interfaces"
           ogUrl={createOgUrl('index.html')}
         />
-        <Button onClick={printAllItems}>Hi</Button>
+        <Button onClick={this.printAllItems}>Hi</Button>
         <div css={{width: '100%'}}>
           <header css={{}}>
             <div
