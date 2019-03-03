@@ -7,12 +7,6 @@ const clientSecret = 'PRD-16de56b6667d-60e1-4830-a274-ff9f';
 const fakeItemId = 'v1|110392198678|0';
 const fakeMastercard = 5395311725039872;
 
-const ebayAuth = new OAuth({
-  clientId: appID,
-  clientSecret,
-  scopes: ['notifications', 'gist'],
-});
-
 // This obtains the user consent
 
 export const axiosConfig = () => {
