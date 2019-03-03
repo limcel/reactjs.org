@@ -26,7 +26,8 @@ export const axiosConfig = () => {
   });
 };
 
-export const initiateCheckoutSession = async () => {
+export const initiateCheckoutSession = async itemIds => {
+  const lineItemInputs = itemIds.map(itemId => ({itemId, quantity: 1}));
   const api = await axiosConfig();
   try {
     const response = await api.post(
@@ -57,13 +58,7 @@ export const initiateCheckoutSession = async () => {
           expireMonth: '11',
           expireYear: '2022',
         },
-        lineItemInputs: [
-          {
-            /* LineItemInput */
-            itemId: fakeItemId,
-            quantity: '1',
-          },
-        ],
+        lineItemInputs,
         shippingAddress: {
           /* ShippingAddress */
           addressLine1: 'string',
@@ -78,34 +73,24 @@ export const initiateCheckoutSession = async () => {
         },
       },
     );
-    return response.data;
+    return response.data.checkoutSessionId;
   } catch (e) {
     console.log(e.response.data);
   }
 };
 
-// export const retrieveAndStoreBuyerOAuth = async () => {
-//   export const api = await axiosConfig();
-//   return api.post('/identity/v1/oauth2/token', {
-//     grant_type: 'authorization_code',
-//   });
-// };
-
-// Category ids found here https://www.isoldwhat.com/getcats/index.php?RootID=293#293
-// export const searchItems = async string => {
-//   return await Axios.get(
-//     'http://svcs.ebay.com/services/search/FindingService/v1',
-//     {
-//       params: {
-//         'OPERATION-NAME': 'findItemsAdvanced',
-//         'SERVICE-VERSION': '1.0.0',
-//         'SECURITY-APPNAME': appID,
-//         'RESPONSE-DATA-FORMAT': 'JSON',
-//         'REST-PAYLOAD': true,
-//         'paginationInput.entriesPerPage': 99999,
-//         keywords: string,
-//       },
-//       headers: {'Access-Control-Allow-Origin': '*'},
-//     },
-//   ).then(r => r.data);
-// };
+export const initiatePayment = async checkoutSessionId => {
+  const api = await axiosConfig();
+  try {
+    const response = await api.post(
+      `buy/order/v1/guest_checkout_session/${checkoutSessionId}/initiate_payment`,
+      {
+        paymentMethodType: 'WALLET',
+        paymentMethodBrandType: 'PAYPAL_CHECKOUT',
+      },
+    );
+    return response.data;
+  } catch (e) {
+    console.log(e.response.data);
+  }
+};

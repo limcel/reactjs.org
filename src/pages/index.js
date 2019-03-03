@@ -24,7 +24,7 @@ import bannerImage from '../images/apple_items.jpg';
 import {white} from 'ansi-colors';
 import BuyerListingPage from 'components/BuyerListingPage';
 import SellerListingPage from 'components/SellerListingPage';
-import {initiateCheckoutSession} from 'api/axios';
+import {buyFlow} from 'api/buyFlow';
 class Home extends Component {
   state = {
     babelLoaded: false,
@@ -44,8 +44,7 @@ class Home extends Component {
         console.error('Babel failed to load.');
       },
     );
-    console.log(await initiateCheckoutSession());
-
+    await buyFlow();
     // console.log('initiate');
     // console.log(await initiateCheckoutSession());
     // console.log('initiate');
