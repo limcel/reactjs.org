@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
 import {
+  Button,
   FormControl,
   InputLabel,
   Select,
@@ -16,6 +17,7 @@ import {
 // import and use material ui elements here
 
 let id = 0;
+let InputLabelRef = '';
 function createData(
   name,
   description,
@@ -44,7 +46,7 @@ class SellerListingPage extends Component {
 
   componentDidMount() {
     this.setState({
-      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
+      labelWidth: ReactDOM.findDOMNode(InputLabelRef).offsetWidth,
     });
   }
 
@@ -59,7 +61,7 @@ class SellerListingPage extends Component {
         <FormControl variant="outlined">
           <InputLabel
             ref={ref => {
-              this.InputLabelRef = ref;
+              InputLabelRef = ref;
             }}
             htmlFor="outlined-category-native-simple">
             Category
@@ -76,40 +78,50 @@ class SellerListingPage extends Component {
               />
             }>
             <option value="" />
-            <option value={'Tech'}>Tech</option>
-            <option value={'Beauty'}>Beauty</option>
-            <option value={'Clothing'}>Clothing</option>
-            <option value={'Homeware'}>Homeware</option>
+            <option value={'tech'}>Tech</option>
+            <option value={'beauty'}>Beauty</option>
+            <option value={'household'}>Household</option>
           </Select>
         </FormControl>
       </div>
     );
   }
 
-  renderSelectedTable() {
+  renderSelectedTable(category, props) {
+
+    var listToMap;
+    
+    if (category === 'beauty') {
+      listToMap = props.itemsBeauty;
+    } else if (category === 'tech') {
+      listToMap = props.itemsTech;
+    } else if (category === 'household') {
+      listToMap = props.itemsHousehold;
+    } else {
+      listToMap = '';
+    }
+
     return (
       <div style={styles.selectedTable}>
         <Paper>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Item</TableCell>
-                <TableCell align="right">Description</TableCell>
-                <TableCell align="right">Seller Stars</TableCell>
-                <TableCell align="right">Retail Price</TableCell>
-                <TableCell align="right">Current Price</TableCell>
+                <TableCell align="left">Image</TableCell>
+                <TableCell align="left">Title</TableCell>
+                <TableCell align="right">Price</TableCell>
+                <TableCell align="right">Seller Feedback</TableCell>
+                <TableCell align="right">Add to Box</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(row => (
+              {listToMap.map(row => (
                 <TableRow key={row.id}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="right">{row.description}</TableCell>
-                  <TableCell align="right">{row.sellerRatings}</TableCell>
-                  <TableCell align="right">{row.retailPrice}</TableCell>
-                  <TableCell align="right">{row.currentPrice}</TableCell>
+                  <TableCell align="left"> <img src={row.image.imageUrl} /></TableCell>
+                  <TableCell align="left">{row.title}</TableCell>
+                  <TableCell align="right">{row.price.value}</TableCell>
+                  <TableCell align="right">{row.seller.feedbackScore}</TableCell>
+                  <TableCell align="right"><Button>Add</Button></TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -120,11 +132,14 @@ class SellerListingPage extends Component {
   }
 
   render() {
+    let itemsBeauty, itemsHousehold, itemsTech = this.props;
+    const category = this.state;
+
     console.log(this.state.category);
 
-    return this.state.category === ''
-      ? this.renderDropdownOptions()
-      : this.renderSelectedTable();
+    return (
+      this.state.category === '' ? this.renderDropdownOptions() : this.renderSelectedTable(this.state.category, this.props)
+    );
   }
 }
 
