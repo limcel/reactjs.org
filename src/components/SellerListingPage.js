@@ -14,6 +14,7 @@ import {
   TableRow,
   Paper,
 } from '@material-ui/core';
+import firebase from 'firebase';
 // import and use material ui elements here
 
 let id = 0;
@@ -52,9 +53,117 @@ class SellerListingPage extends Component {
 
   handleChange = name => event => {
     this.setState({[name]: event.target.value});
+    firebase
+      .database()
+      .ref('theme/')
+      .push(event.target.value);
+
+    firebase
+      .database()
+      .ref('items')
+      .remove();
   };
 
   renderDropdownOptions() {
+    return (
+      <div style={styles.sellerItemStyle}>
+        <h2 style={styles.h2Styling}> Select Category Below </h2>
+        <FormControl variant="outlined">
+          <InputLabel
+            ref={ref => {
+              InputLabelRef = ref;
+            }}
+            htmlFor="outlined-category-native-simple">
+            Category
+          </InputLabel>
+          <Select
+            native
+            value={this.state.category}
+            onChange={this.handleChange('category')}
+            input={
+              <OutlinedInput
+                name="category"
+                labelWidth={this.state.labelWidth}
+                id="outlined-category-native-simple"
+              />
+            }>
+            <option value="" />
+            <option value={'Technology'}>Tech</option>
+            <option value={'Beauty'}>Beauty</option>
+            <option value={'Household Appliances'}>Household</option>
+          </Select>
+        </FormControl>
+      </div>
+    );
+  }
+
+  renderSelectedTable(category, props) {
+    var listToMap;
+
+    if (category === 'beauty') {
+      listToMap = props.itemsBeauty;
+    } else if (category === 'tech') {
+      listToMap = props.itemsTech;
+    } else if (category === 'household') {
+      listToMap = props.itemsHousehold;
+    } else {
+      listToMap = '';
+    }
+
+    return (
+      <div style={styles.selectedTable}>
+        <Paper>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell align="left">Image</TableCell>
+                <TableCell align="left">Title</TableCell>
+                <TableCell align="right">Price</TableCell>
+                <TableCell align="right">Seller Feedback</TableCell>
+                <TableCell align="right">Add to Box</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {listToMap.map(item => (
+                <TableRow key={item.id}>
+                  <TableCell align="left">
+                    {' '}
+                    <img src={item.image.imageUrl} />
+                  </TableCell>
+                  <TableCell align="left">{item.title}</TableCell>
+                  <TableCell align="right">{item.price.value}</TableCell>
+                  <TableCell align="right">
+                    {item.seller.feedbackScore}
+                  </TableCell>
+                  <TableCell align="right">
+                    <Button
+                      onClick={() => {
+                        console.log('adding now');
+                        firebase
+                          .database()
+                          .ref('items/')
+                          .push(item);
+                      }}>
+                      Add
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Paper>
+      </div>
+    );
+  }
+
+  render() {
+    let itemsBeauty,
+      itemsHousehold,
+      itemsTech = this.props;
+    const category = this.state;
+
+    console.log(this.state.category);
+
     return (
       <div style={styles.sellerItemStyle}>
         <h2 style={styles.h2Styling}> Select Category Below </h2>
@@ -83,90 +192,10 @@ class SellerListingPage extends Component {
             <option value={'household'}>Household</option>
           </Select>
         </FormControl>
-      </div>
-    );
-  }
 
-  renderSelectedTable(category, props) {
-
-    var listToMap;
-    
-    if (category === 'beauty') {
-      listToMap = props.itemsBeauty;
-    } else if (category === 'tech') {
-      listToMap = props.itemsTech;
-    } else if (category === 'household') {
-      listToMap = props.itemsHousehold;
-    } else {
-      listToMap = '';
-    }
-
-    return (
-      <div style={styles.selectedTable}>
-        <Paper>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell align="left">Image</TableCell>
-                <TableCell align="left">Title</TableCell>
-                <TableCell align="right">Price</TableCell>
-                <TableCell align="right">Seller Feedback</TableCell>
-                <TableCell align="right">Add to Box</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {listToMap.map(row => (
-                <TableRow key={row.id}>
-                  <TableCell align="left"> <img src={row.image.imageUrl} /></TableCell>
-                  <TableCell align="left">{row.title}</TableCell>
-                  <TableCell align="right">{row.price.value}</TableCell>
-                  <TableCell align="right">{row.seller.feedbackScore}</TableCell>
-                  <TableCell align="right"><Button>Add</Button></TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Paper>
-      </div>
-    );
-  }
-
-  render() {
-    let itemsBeauty, itemsHousehold, itemsTech = this.props;
-    const category = this.state;
-
-    console.log(this.state.category);
-
-    return (
-     <div style={styles.sellerItemStyle}>
-        <h2 style={styles.h2Styling}> Select Category Below </h2>
-        <FormControl variant="outlined">
-          <InputLabel
-            ref={ref => {
-              InputLabelRef = ref;
-            }}
-            htmlFor="outlined-category-native-simple">
-            Category
-          </InputLabel>
-          <Select
-            native
-            value={this.state.category}
-            onChange={this.handleChange('category')}
-            input={
-              <OutlinedInput
-                name="category"
-                labelWidth={this.state.labelWidth}
-                id="outlined-category-native-simple"
-              />
-            }>
-            <option value="" />
-            <option value={'tech'}>Tech</option>
-            <option value={'beauty'}>Beauty</option>
-            <option value={'household'}>Household</option>
-          </Select>
-        </FormControl>
-
-        {this.state.category === '' ? '' : this.renderSelectedTable(this.state.category, this.props)}
+        {this.state.category === ''
+          ? ''
+          : this.renderSelectedTable(this.state.category, this.props)}
       </div>
     );
   }

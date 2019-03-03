@@ -47,10 +47,14 @@ const styles = theme => ({
 });
 
 class LoginPage extends Component {
+  state = {
+    username: '',
+  };
+
   render() {
-    console.log('Login page is ran');
     const {classes} = this.props;
-    const {handleLogin} = this.props;
+    const {handleLoginAdmin, handleLoginUser} = this.props;
+
     return (
       <main className={classes.main}>
         <CssBaseline />
@@ -64,7 +68,15 @@ class LoginPage extends Component {
           <form className={classes.form}>
             <FormControl margin="normal" fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus />
+              <Input
+                id="email"
+                name="email"
+                autoComplete="email"
+                onChange={() => {
+                  this.setState({username: event.target.value});
+                }}
+                autoFocus
+              />
             </FormControl>
             <FormControl margin="normal" fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
@@ -86,7 +98,11 @@ class LoginPage extends Component {
               color="primary"
               className={classes.submit}
               onClick={() => {
-                handleLogin();
+                if (this.state.username === 'admin@gmail.com') {
+                  handleLoginAdmin();
+                } else {
+                  handleLoginUser();
+                }
               }}>
               Login
             </Button>
