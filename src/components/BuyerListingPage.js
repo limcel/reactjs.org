@@ -8,13 +8,51 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Puppy from '../images/puppy.jpg';
+import Grid from '@material-ui/core/Grid';
 
 function BuyerListingPage(props) {
-  const {classes} = props;
+  const {classes, itemSummaries} = props;
+  console.log(itemSummaries);
+  const itemCards = itemSummaries.map(itemSummary => {
+    const {title, image, price, itemHref} = itemSummary;
+    const imageUrl = image.imageUrl;
+    const card = (
+      <Card className={classes.card} key={title}>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            alt="Contemplative Reptile"
+            className={classes.media}
+            height="140"
+            image={imageUrl}
+            title="Contemplative Reptile"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="body2" component="h2">
+              {title}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Button size="small" color="primary" href={itemHref} target="_blank">
+            Visit seller's website
+          </Button>
+          <Typography>${price.value}</Typography>
+        </CardActions>
+      </Card>
+    );
+    return (
+      <Grid item xs>
+        {card}
+      </Grid>
+    );
+  });
   return (
     <div style={styles.cardStyles}>
-      <Card className={classes.card}>
+      <Grid container spacing={24}>
+        {itemCards}
+      </Grid>
+      {/* <Card className={classes.card}>
         <CardActionArea>
           <CardMedia
             component="img"
@@ -42,7 +80,7 @@ function BuyerListingPage(props) {
             Learn More
           </Button>
         </CardActions>
-      </Card>
+      </Card> */}
     </div>
   );
 }
