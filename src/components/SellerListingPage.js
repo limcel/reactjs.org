@@ -14,6 +14,7 @@ import {
   TableRow,
   Paper,
 } from '@material-ui/core';
+import firebase from 'firebase';
 // import and use material ui elements here
 
 let id = 0;
@@ -52,6 +53,15 @@ class SellerListingPage extends Component {
 
   handleChange = name => event => {
     this.setState({[name]: event.target.value});
+    firebase
+      .database()
+      .ref('theme/')
+      .push(event.target.value);
+
+    firebase
+      .database()
+      .ref('items')
+      .remove();
   };
 
   renderDropdownOptions() {
@@ -88,9 +98,8 @@ class SellerListingPage extends Component {
   }
 
   renderSelectedTable(category, props) {
-
     var listToMap;
-    
+
     if (category === 'beauty') {
       listToMap = props.itemsBeauty;
     } else if (category === 'tech') {
@@ -115,13 +124,29 @@ class SellerListingPage extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {listToMap.map(row => (
-                <TableRow key={row.id}>
-                  <TableCell align="left"> <img src={row.image.imageUrl} /></TableCell>
-                  <TableCell align="left">{row.title}</TableCell>
-                  <TableCell align="right">{row.price.value}</TableCell>
-                  <TableCell align="right">{row.seller.feedbackScore}</TableCell>
-                  <TableCell align="right"><Button>Add</Button></TableCell>
+              {listToMap.map(item => (
+                <TableRow key={item.id}>
+                  <TableCell align="left">
+                    {' '}
+                    <img src={item.image.imageUrl} />
+                  </TableCell>
+                  <TableCell align="left">{item.title}</TableCell>
+                  <TableCell align="right">{item.price.value}</TableCell>
+                  <TableCell align="right">
+                    {item.seller.feedbackScore}
+                  </TableCell>
+                  <TableCell align="right">
+                    <Button
+                      onClick={() => {
+                        console.log('adding now');
+                        firebase
+                          .database()
+                          .ref('items/')
+                          .push(item);
+                      }}>
+                      Add
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -132,13 +157,15 @@ class SellerListingPage extends Component {
   }
 
   render() {
-    let itemsBeauty, itemsHousehold, itemsTech = this.props;
+    let itemsBeauty,
+      itemsHousehold,
+      itemsTech = this.props;
     const category = this.state;
 
     console.log(this.state.category);
 
     return (
-     <div style={styles.sellerItemStyle}>
+      <div style={styles.sellerItemStyle}>
         <h2 style={styles.h2Styling}> Select Category Below </h2>
         <FormControl variant="outlined">
           <InputLabel
@@ -166,7 +193,9 @@ class SellerListingPage extends Component {
           </Select>
         </FormControl>
 
-        {this.state.category === '' ? '' : this.renderSelectedTable(this.state.category, this.props)}
+        {this.state.category === ''
+          ? ''
+          : this.renderSelectedTable(this.state.category, this.props)}
       </div>
     );
   }
