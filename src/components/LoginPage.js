@@ -11,6 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import pandoraBoxLogo from '../images/Pandora-Box.jpg';
 
 const styles = theme => ({
   main: {
@@ -59,12 +60,8 @@ class LoginPage extends Component {
       <main className={classes.main}>
         <CssBaseline />
         <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            {/* <LockOutlinedIcon /> */}
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
+          <img src={pandoraBoxLogo} alt="" height="135" />
+
           <form className={classes.form}>
             <FormControl margin="normal" fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
