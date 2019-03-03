@@ -18,9 +18,8 @@ export const axiosConfig = () => {
   return Axios.create({
     baseURL: 'https://api.ebay.com/',
     headers: {
-      Authorization: `Basic ${btoa(`${appID}:${clientSecret}`)}`,
+      Authorization: `Basic ${authToken}`,
       'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/x-www-form-urlencoded',
     },
   });
 };
@@ -75,20 +74,20 @@ export const storeSellerOAuth = oauth => {
 // };
 
 // Category ids found here https://www.isoldwhat.com/getcats/index.php?RootID=293#293
-export const searchItems = async string => {
-  return await Axios.get(
-    'http://svcs.ebay.com/services/search/FindingService/v1',
-    {
-      params: {
-        'OPERATION-NAME': 'findItemsAdvanced',
-        'SERVICE-VERSION': '1.0.0',
-        'SECURITY-APPNAME': appID,
-        'RESPONSE-DATA-FORMAT': 'JSON',
-        'REST-PAYLOAD': true,
-        'paginationInput.entriesPerPage': 99999,
-        keywords: string,
-      },
-      headers: {'Access-Control-Allow-Origin': '*'},
-    },
-  ).then(r => r.data);
-};
+// export const searchItems = async string => {
+//   return await Axios.get(
+//     'http://svcs.ebay.com/services/search/FindingService/v1',
+//     {
+//       params: {
+//         'OPERATION-NAME': 'findItemsAdvanced',
+//         'SERVICE-VERSION': '1.0.0',
+//         'SECURITY-APPNAME': appID,
+//         'RESPONSE-DATA-FORMAT': 'JSON',
+//         'REST-PAYLOAD': true,
+//         'paginationInput.entriesPerPage': 99999,
+//         keywords: string,
+//       },
+//       headers: {'Access-Control-Allow-Origin': '*'},
+//     },
+//   ).then(r => r.data);
+// };
