@@ -3,8 +3,10 @@ import OAuth from 'client-oauth2';
 
 const appID = 'hacktech-hacktech-PRD-f16de56b6-85aa39cf';
 const authToken =
-  'v^1.1#i^1#r^0#p^1#I^3#f^0#t^H4sIAAAAAAAAAOVXe2wURRjv9aUNIpIoGMR4LE9Lbm/37vbudksv2dICBy09uJZAAWF2d7Zduy925tqeQW2ayksTjBgiRIRgMMHEF4loQnxgFDX6BxE1MRgTFRRBEomJNAbF2b2jXCsBCoeQeL3kut98883v9/u+b2aH6a2sql43b93Z0b7bSnf1Mr2lPh87iqmqrJh5Z1nphIoSpsDBt6t3Sm95X9mJWQgYui0shsi2TAT9PYZuIsEz1lIZxxQsgDQkmMCASMCykBabGoUQzQi2Y2FLtnTKn6yvpfgIlCKhaAiE5LDCA55YzQsxWywyrspxFoB4VFKYWFwOk3GEMjBpIgxMXEuFGJYPMGHybWFiAhcRIhwd5rg2yr8EOkizTOJCM1TCgyt4c50CrJeHChCCDiZBqERSnJNuFpP1DQtbZgULYiXyOqQxwBk09Gm2pUD/EqBn4OWXQZ63kM7IMkSICiZyKwwNKogXwFwDfE/qOKvGgRqJKjDOsZwqFUXKOZZjAHx5HK5FUwKq5ypAE2s4eyVFiRrSw1DG+aeFJESy3u/+LMoAXVM16NRSDXXiMjGVohIdQO7EUO4IDP6TWlwfUFnClYtK0UCcAyDMy2p+oVy0vMzDVpptmYrmiob8Cy1cBwlqOFybSIE2xKnZbHZEFbuICv34QQ1DbW5Sc1nM4A7TzSs0iBB+7/HKGRicjbGjSRkMByMMH/AkqqWAbWsKNXzQq8V8+fSgWqoDY1sIBru7u+nuMG057cEQw7DBpU2NabkDGoAivm6v5/y1K08IaB4VGZKZSBNw1iZYekitEgBmO5UIk8rjQ3ndh8JKDLf+y1DAOTi0I4rVITJQo7ISi8OoGpKioVgxOiSRL9KgiwNKIBswgNMJsa0DGQZkUmcZAzqaIoQ5NRSOqzCgRHk1EOFVNSBxSjTAqhAyEEqSzMf/T41ytaWeli0bpixdk7NFKfjiFbujpICDs2mo68RwtVV/SZLIJXnD6bm9PiKKbgxEggBbo93apmXLCFqAbGquaZWH+rp4i7adNIwMBpIOk8XZ0G7SZnZJeho57m8pTiR/uURqSu6cpr1s0qhLph2IrIxDXlHoZvfYarE6oUk2AexYug6dJex1J/oWy+8I98pr4128g3qEvEmvh25obcu6Rkpo1c1hd5OzqgF8a7FmOfLKz/PROHddvGZ7OW3J/gdn0YjozbMQhsoNeK8MDr3lJkq8D9vne5Pp871BLspMkJnKTmYmVZa1lpfdMQFpGNIaUGmktZvk8uZAuhNmbaA5pZW+5RNf37uq4F69ayVz7+DNuqqMHVVwzWYmXhypYMeMH83yTJj8xbhIhGtjJl8cLWfHld89dVlNKH3y/AL+1XOn9vdNW9Sf+aaRGT3o5PNVlJT3+Uq2VDdN/aL/pekrFlRvlMZv+rnz6a8//nLD2/sTHS+u2L5Gee/91qaWgwP+kj2b75pxdu2jO//8pPqA+NY93PKDk9veXft8autPC8b+tp3esf5U5y/vnNmqNW5ozGzemJr07GviRw/g716eMv3M4f4Nvd0sNSFxsrVmW3BgzdhX5qz8fGJ1jXPy/uPHtiT3H/t9XEPbM3uz4ysfqRvb/9mMv1bfLv4xT+ppsl/wL5v/1JHVmxLy/Iq5xs5Dp8Wje45MOtRzfu7ugelP7Os6vlFfNy27/u8P27OHfzW+an0svvvA7hOx088dHaj5NNbw+JiHvv9R3PHtOV+i6tjMA0/+sFTv+mBt1/F99+2N1+1ZI4/ZdurBXPr+AfMwpwXxEAAA';
+  'v^1.1#i^1#f^0#r^0#p^1#I^3#t^H4sIAAAAAAAAAOVYfWwURRTv9ctAKSRCKx+mORbQILm92d3e14Y7uLZUDktbuFIQMDi3O9fb9m732Jm1PYxYmvARJCYmGiPR2BATDCGBiCR+BP8iJghJURBJEWNiEFQwQIytCsbZvaNcKylHObCJ95G9nXnvzXu/93s77wZ0l054atvSbQPltkcKe7tBd6HNxpWBCaUlCyYXFc4sKQBZArbe7rndxT1FlxZimIgnxZUIJzUVI3tXIq5i0Rr0M4auihrEChZVmEBYJJIYDi5vEHkWiEldI5qkxRl7qM7PyJIrEnG5gVAtu3y85Kaj6i2bLZqfkQSe98q85PN5XUBySXQeYwOFVEygSvwMDzifAwj00wK8ogBE4GWrXdxaxt6KdKxoKhVhAROw3BUtXT3L19FdhRgjnVAjTCAUrA83BUN1SxpbFjqzbAUyOIQJJAYeflerycjeCuMGGn0ZbEmLYUOSEMaMM5BeYbhRMXjLmTG4b0Fd7RGgS/BxUYGjXxTNC5T1mp6AZHQ/zBFFdkQtURGpRCGpuyFK0Yi0I4lk7hqpiVCd3bysMGBciSpI9zNLaoLPBpubmUAMSh0ESTHH0I9wzRoH5NyIj7qkqEPweDyRCHBnFkpby8A8YqVaTZUVEzRsb9RIDaJeo5HY8FnYUKEmtUkPRonpUZYcB25hyHvWmklNZ9EgMdXMK0pQIOzW7d0zMKRNiK5EDIKGLIycsCDyMzCZVGRm5KTFxQx9urCfiRGSFJ3Ozs5OtlNgNb3NyQPAOdcsbwhLMZSADJU1az0tr9xdwaFYoUiIamJFJKkk9aWLcpU6oLYxAYEXuGoug/twtwIjR/81kBWzc3hF5KtC3MgFOR5Ibp8HuCXozkeFBDIkdZp+oAhMORJQ70AkGYcSckiUZ0YC6YosCq4oL3ijyCG7fVFHtS8adURcstvBRRECCEUiks/7fyqUXKkelrQkatbiipTKC+HzR3ZdboY6SdUYKXofRvE4veTK/TuGis1QH2CQZq2PIVDTBqZGYFJhTYazkpZwapA+2syhDZbX9lyEnBEjxbYZCBPqhUx3l5yVFEoRlhaKnLtKugxpALmr0NZFNiQypoWsemcpkkpbjOB7WrNrDKBgSjc2rrUpmCgSZpOGrN0X9YLJZCiRMAiMxFEoPzvLf7Sr3DE8hfZd4yommtN0chU53TCxVoZZ/ILE6ghrhk57RbbJ7B9atA6k0qcx0bV4HOmtuSFh1vpoyR5nOb7HjWtsLMhf1zSeuC3FFUqhDeMtsoeSUQWS8RU153JxbsB5gfe+4qq1ctqSyq0dKN5y6uFFuFTDBMkPoMd3Dj9xCBRYL67HdgT02D4utNmABzi4BWB+adGq4qJJDKZNAYuhKke0LlaBUZZuvSr9Q60jtgOlklDRC0tt62b9vOhG1llH73Ng+tBpx4Qirizr6AM8fnumhJvyWDnnAwJ9ewUAvGvBnNuzxVxl8bRjG7tmnt/Mn/7g2G+d7VPw4bLaHcdA+ZCQzVZSUNxjK1h1s/X15vN7rr+84/v9r8Um1wuLF9UK7QPXqo6++cOm61unzGbCDQfmHllzZcGJX9b/+vfkiomNq2vAurOHmt7uP1jYXajumzRjd8O3/XBS6eCL5VfX/37zj1N1W8TYqzuOvvGlsuzpk1/M3fJkZY/v0Ynvti/76czewSd8s9+HLyVWn60yph/YWL93z7QLc16pOnipZ+O8infg8V3by9s21zyz+wb67uSmwxdtSwbnX963/evj/X3okxNls2fc3Hnh3Kez9ix2Ln3+m88dFwcqvtpf/ZnAX33vw5Xtp3s9UxNTz/X1VWz/88drqw5VvNV/pbLy8l+DJ8BZvCiyte/QzsDApjPzVlysbe2ou1T10XznqXQa/wEohQWzhRIAAA==';
 const clientSecret = 'PRD-16de56b6667d-60e1-4830-a274-ff9f';
+const fakeItemId = 'v1|110392198678|0';
+const fakeMastercard = 5395311725039872;
 
 const ebayAuth = new OAuth({
   clientId: appID,
@@ -16,7 +18,7 @@ const ebayAuth = new OAuth({
 
 export const axiosConfig = () => {
   return Axios.create({
-    baseURL: 'https://api.ebay.com/',
+    baseURL: 'https://apix.sandbox.ebay.com/',
     headers: {
       Authorization: `Bearer ${authToken}`,
       'Access-Control-Allow-Origin': '*',
@@ -24,15 +26,62 @@ export const axiosConfig = () => {
   });
 };
 
-export const searchForItems = async string => {
+export const initiateCheckoutSession = async () => {
   const api = await axiosConfig();
-  return api
-    .get('buy/browse/v1/item_summary/search', {
-      params: {
-        q: string,
+  try {
+    const response = await api.post(
+      '/buy/order/v1/guest_checkout_session/initiate',
+      {
+        contactEmail: 'test@test.com',
+        contactFirstName: 'test',
+        contactLastName: 'test',
+        /* CreateSignInCheckoutSessionRequest */
+        creditCard: {
+          /* CreditCard */
+          accountHolderName: 'test',
+          billingAddress: {
+            /* BillingAddress */
+            addressLine1: 'string',
+            addressLine2: 'string',
+            city: 'string',
+            country: 'AF',
+            county: 'string',
+            firstName: 'string',
+            lastName: 'string',
+            postalCode: 'string',
+            stateOrProvince: 'string',
+          },
+          brand: 'Mastercard',
+          cardNumber: `${fakeMastercard}`,
+          cvvNumber: '333',
+          expireMonth: '11',
+          expireYear: '2022',
+        },
+        lineItemInputs: [
+          {
+            /* LineItemInput */
+            itemId: fakeItemId,
+            quantity: '1',
+          },
+        ],
+        shippingAddress: {
+          /* ShippingAddress */
+          addressLine1: 'string',
+          addressLine2: 'string',
+          city: 'string',
+          country: 'US',
+          county: 'string',
+          phoneNumber: '1111111111',
+          postalCode: '11111',
+          recipient: 'string',
+          stateOrProvince: 'CA',
+        },
       },
-    })
-    .then(r => r.data);
+    );
+    return response.data;
+  } catch (e) {
+    console.log(e.response.data);
+  }
 };
 
 // export const retrieveAndStoreBuyerOAuth = async () => {
