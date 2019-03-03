@@ -34,6 +34,7 @@ class Home extends Component {
   };
 
   componentDidMount() {
+    console.log('componentDidMount load');
     loadScript(babelURL).then(
       () => {
         this.setState({
@@ -44,6 +45,27 @@ class Home extends Component {
         console.error('Babel failed to load.');
       },
     );
+  }
+
+  componentWillMount() {
+    console.log('component will mount ran');
+    const apiKey =
+      'v^1.1#i^1#f^0#I^3#r^0#p^1#t^H4sIAAAAAAAAAOVXfWwURRTv9dpihYJWogiYHgtoBHdv9/b27nbhDq8tDYeFVq6ULwH3Y7Zdure77MzZXiDYVAMxYNQ/0MYAKVGDRUGKaIga/wA0gRAjEsJHlEojxL+IMSQmRMXZ7VGulQClrZB4d8nevHnz5v1+772ZfXRrUfGMjfM2/lHiGZXf0Uq35ns8zGi6uKhw5lhv/sTCPDpHwdPROq21oM3762wopnRLWASgZRoQ+FpSugEFVxgl0rYhmCLUoGCIKQAFJAvJ+IJqIUDRgmWbyJRNnfAlKqNEMAxYhQmHpVCYjTAcj6XGdZt1ZpQAAYVWFSYYjgRDUkDC0xCmQcKASDRQlAjQDE/SLP7V0WGB4wQ2QgW4yHLCVw9sqJkGVqFoIuZ6K7hr7RxXb+2pCCGwETZCxBLxqmRNPFE5d2HdbH+OrViWhiQSURr2H1WYCvDVi3oa3Hob6GoLybQsAwgJf6x3h/5Ghfh1Z+7CfZdpRpHDUpgFTJDlmYjL9NCprDLtlIhu7Ycj0RRSdVUFYCANZW7HKGZDWgNklB0txCYSlT7n8Xxa1DVVA3aUmFseXxavrSVijaLchIDcSPb9qV1USapMSAFcSAqREU4UWV5Wsxv1WsvSPGCnCtNQNIc06FtoonKAvQYDuQnmcIOVaowaO64ix6NcPb6PQ2a5E9TeKKZRo+HEFaQwET53ePsI9K1GyNakNAJ9FgZOuBRFCdGyNIUYOOnmYjZ9WmCUaETIEvz+5uZmqpmlTLvBH6Bpxr90QXVSbgQpkXB0nVp39bXbLyA1F4oM8EqoCShjYV9acK5iB4wGIsZGOIYPZHnv71ZsoPRfghzM/v4VMVwVovI8D/gwD2RZVCUlOBwVEssmqd/xA0hihkyJdhNAli7KgJRxnqVTwNYUgeXUABtRAamEeJUM8qpKSpwSIhkVABoASZL5yP+pUO401ZOyaYFaU9fkzPAk/LAlu63UijbKJIGuY8GdZv1NQUIH5MjDc2p9MBAdGxAbES2NcnKbks2U3xTxoeaIVrteDwl33LISqVQaiZIOEsN0oN2bw+ym8DR83d9XmHD8egOpKb33NOVGk4IvyZQNoJm28SsKVeNcW3VmEzDwIYBsU9eBXc8MOdD3WXwHeVbeHe5hvKgHiRvXOjOSuS3rGk6h1fcI3b2Nqiai+ws1w3G4t+JxizUkXBVuTOsy/8VdNBh480yIgDIC75X+/k1uLM/9MG2ez+g2Txfuk2k/PZ2ZSk8p8i4u8I6ZCDUEKE1UKag1GLh5swHVBDKWqNn5RZ4Vk/d1rs5pqztW0hP6GutiLzM6p8umJ9+YKWTGPVbC8DSLv2GOYyPL6ak3ZguYRwvGJ+bP2nnw6GXr8LKu0b+Hf4gUth9aT5f0KXk8hXkFbZ488NCSJbWJZ19o+ylvw8n9PdKqcx1vXtl9tedA1Vdfww+fuKhoe0zviq075s9q2rI0ubtl8av53Ru+ndx5YuYjXcrij6cXI/5cGfXn9gdJ35GzRdt8ZudTp+r/qjtyuqr9ox3o5JTjj+9aeWzaoaOv8+81PFN6wCz9fE/+zyUf7K8uKZzz9/knl20/9vI6aSd3YfP4N86PrWkJtB8989oDFzp7Gi8fPl42Y03zpB8Pdu/75pOL8hVwprz9atV3b1VfA8yYd5U53awtx56uKIuuL700yjfzlxPvn937cHJ92SsVqz59Z+3+s951pS++/f0u81Ri67Ujm75Yu2DzvC8vnN5SfenwuFETfos/t3dS98FtXb3h+wct8zME8BAAAA==';
+    const catId = 20863;
+    const xhr = new XMLHttpRequest();
+    xhr.open(
+      'get',
+      'https://api.ebay.com/buy/browse/v1/item_summary/search?category_ids=' +
+        catId +
+        '&limit=20',
+      true,
+    );
+    xhr.setRequestHeader('Authorisation', 'Bearer ' + apiKey);
+
+    xhr.onload = function() {
+      var userResponse = JSON.parse(xhr.responseText);
+      console.log(userResponse);
+    };
   }
 
   handleLogin() {
@@ -182,7 +204,7 @@ class Home extends Component {
           </header>
           <BuyerListingPage />
 
-          {/*<SellerListingPage /> */}
+          {/* <SellerListingPage /> */}
 
           <section
             css={{

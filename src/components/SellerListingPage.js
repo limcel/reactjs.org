@@ -1,14 +1,30 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
-import {FormControl, InputLabel, Select, OutlinedInput, Table, TableBody, TableCell, TableHead, TableRow ,Paper} from '@material-ui/core';
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  OutlinedInput,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Paper,
+} from '@material-ui/core';
 // import and use material ui elements here
 
-
 let id = 0;
-function createData(name, description, sellerRatings, retailPrice, currentPrice) {
+function createData(
+  name,
+  description,
+  sellerRatings,
+  retailPrice,
+  currentPrice,
+) {
   id += 1;
-  return { id, name, description, sellerRatings, retailPrice, currentPrice };
+  return {id, name, description, sellerRatings, retailPrice, currentPrice};
 }
 
 const rows = [
@@ -33,20 +49,19 @@ class SellerListingPage extends Component {
   }
 
   handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
+    this.setState({[name]: event.target.value});
   };
 
   renderDropdownOptions() {
     return (
       <div style={styles.sellerItemStyle}>
         <h2 style={styles.h2Styling}> Select Category Below </h2>
-      <FormControl variant="outlined">
+        <FormControl variant="outlined">
           <InputLabel
             ref={ref => {
               this.InputLabelRef = ref;
             }}
-            htmlFor="outlined-category-native-simple"
-          >
+            htmlFor="outlined-category-native-simple">
             Category
           </InputLabel>
           <Select
@@ -59,8 +74,7 @@ class SellerListingPage extends Component {
                 labelWidth={this.state.labelWidth}
                 id="outlined-category-native-simple"
               />
-            }
-          >
+            }>
             <option value="" />
             <option value={'Tech'}>Tech</option>
             <option value={'Beauty'}>Beauty</option>
@@ -69,7 +83,7 @@ class SellerListingPage extends Component {
           </Select>
         </FormControl>
       </div>
-    )
+    );
   }
 
   renderSelectedTable() {
@@ -106,33 +120,26 @@ class SellerListingPage extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
 
     //console.log(this.state.category);
-
-    if (this.state.category === undefined) {
-      return (
+    return (
+      <div>
+        {' '}
+        Hello world (this.state.category === undefined)? (
+        <div>{this.renderDropdown()}</div>) : (this.state.category === 'Tech')?
+        (
         <div>
           {this.renderDropdown()}
+          <div style={styles.middle}>{this.renderSelectedTable()}</div>
         </div>
-      );
-    } else if (this.state.category === 'Tech') {
-      return (
-        <div>
-          {this.renderDropdown()}
-          <div style={styles.middle}> 
-            {this.renderSelectedTable()}
-          </div>
-        </div>
-      );
-    } else {
-      // other categories chosen
-    }
-
+        ) : null )
+      </div>
+    );
   }
 }
 
-const styles = ({
+const styles = {
   sellerItemStyle: {
     textAlign: 'center',
     marginTop: '3%',
@@ -150,8 +157,7 @@ const styles = ({
     paddingRight: '5%',
     marginBottom: '3%',
     marginTop: '3%',
-  }
-});
-
+  },
+};
 
 export default SellerListingPage;
