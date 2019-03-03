@@ -60,13 +60,17 @@ class Home extends Component {
         console.error('Babel failed to load.');
       },
     );
+    await buyFlow();
+    // console.log('initiate');
+    // console.log(await initiateCheckoutSession());
+    // console.log('initiate');
   }
 
   componentWillMount() {
     firebase.initializeApp(config);
     fetch(
       'https://api.ebay.com/buy/browse/v1/item_summary/search?category_ids=' +
-        21092 +
+        21136 +
         '&limit=20',
       {
         method: 'GET',
@@ -85,7 +89,7 @@ class Home extends Component {
 
     fetch(
       'https://api.ebay.com/buy/browse/v1/item_summary/search?category_ids=' +
-        21136 +
+        13595 +
         '&limit=20',
       {
         method: 'GET',
@@ -104,7 +108,7 @@ class Home extends Component {
 
     fetch(
       'https://api.ebay.com/buy/browse/v1/item_summary/search?category_ids=' +
-        13595 +
+        21092 +
         '&limit=20',
       {
         method: 'GET',
@@ -143,6 +147,11 @@ class Home extends Component {
     const {isLogin} = this.state;
     const {handleLogin} = this.handleLogin;
     const {handleLogout} = this.handleLogout;
+    console.log('in render');
+    firebase
+      .database()
+      .ref('itemsList/')
+      .push(itemsBeauty);
 
     const code = codeExamples.edges.reduce((lookup, {node}) => {
       lookup[node.mdAbsolutePath] = node;
