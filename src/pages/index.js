@@ -26,6 +26,7 @@ import BuyerListingPage from 'components/BuyerListingPage';
 import SellerListingPage from 'components/SellerListingPage';
 import {buyFlow} from 'api/buyFlow';
 import {itemsRef} from 'api/firebase';
+import {themesRef} from '../api/firebase';
 
 const getItems = itemsRef.once('value');
 
@@ -40,6 +41,7 @@ class Home extends Component {
     itemsHousehold: [],
     itemsTech: [],
     items: [],
+    currentTheme: '',
   };
 
   async componentDidMount() {
@@ -63,8 +65,20 @@ class Home extends Component {
     this.setState({items: Object.values(firebaseData)});
   }
 
+  async getTheme() {
+    const firebaseData = await themesRef
+      .once('value')
+      .then(snapshot => snapshot.val());
+    const themeArray = Object.values(firebaseData);
+    const currentTheme = themeArray[themeArray.length - 1];
+    this.setState({currentTheme});
+  }
+
+  onBuy() {}
+
   componentWillMount() {
     this.getItems();
+    this.getTheme();
     fetch(
       'https://api.ebay.com/buy/browse/v1/item_summary/search?category_ids=' +
         21136 +
@@ -202,7 +216,9 @@ class Home extends Component {
                       color: colors.white,
                       textAlign: 'center',
                       margin: 0,
-                      fontSize: 45,
+                      fontSize: 60,
+                      fontWeight: 400,
+                      fontFamily: 'Helvetica Neue',
                       letterSpacing: '0.01em',
                       [media.size('xsmall')]: {
                         fontSize: 30,
@@ -217,10 +233,11 @@ class Home extends Component {
                     css={{
                       paddingTop: 15,
                       textAlign: 'center',
-                      fontSize: 24,
+                      fontSize: 40,
                       letterSpacing: '0.01em',
                       fontWeight: 200,
                       color: colors.white,
+                      marginTop: '3%',
                       [media.size('xsmall')]: {
                         fontSize: 16,
                         maxWidth: '12em',
@@ -230,10 +247,11 @@ class Home extends Component {
 
                       [media.greaterThan('xlarge')]: {
                         paddingTop: 20,
-                        fontSize: 30,
+                        fontSize: 40,
                       },
                     }}>
-                    Tech
+                    {this.state.currentTheme.charAt(0).toUpperCase() +
+                      this.state.currentTheme.slice(1)}
                   </p>
                   <Flex
                     valign="center"
@@ -257,7 +275,10 @@ class Home extends Component {
             </div>
           </header>
           {this.state.isUser && (
-            <BuyerListingPage itemSummaries={this.state.items} />
+            <BuyerListingPage
+              itemSummaries={this.state.items}
+              onBuy={this.onBuy}
+            />
           )}
           {this.state.isAdmin && (
             <SellerListingPage
@@ -266,6 +287,7 @@ class Home extends Component {
               itemsTech={itemsTech}
             />
           )}
+
           <section
             css={{
               background: colors.dark,
