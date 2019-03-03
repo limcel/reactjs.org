@@ -53,17 +53,14 @@ class Home extends Component {
         console.error('Babel failed to load.');
       },
     );
-    await buyFlow();
-    // console.log('initiate');
-    // console.log(await initiateCheckoutSession());
-    // console.log('initiate');
   }
 
   async getItems() {
     const firebaseData = await itemsRef
       .once('value')
       .then(snapshot => snapshot.val());
-    this.setState({items: firebaseData});
+    console.log(firebaseData);
+    this.setState({items: Object.values(firebaseData)});
   }
 
   componentWillMount() {

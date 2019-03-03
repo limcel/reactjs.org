@@ -10,6 +10,4 @@ const config = {
 };
 
 const firebaseDB = firebase.initializeApp(config).database();
-export const itemsRef = firebaseDB
-  .ref('itemsList')
-  .child('-L_2P-e0Sd_laEHfw7iT');
+export const itemsRef = firebaseDB.ref('/').child('items');

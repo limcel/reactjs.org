@@ -8,11 +8,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Puppy from '../images/puppy.jpg';
 import Grid from '@material-ui/core/Grid';
 
 function BuyerListingPage(props) {
   const {classes, itemSummaries} = props;
+  console.log(itemSummaries);
   const itemCards = itemSummaries.map(itemSummary => {
     const {title, image, price, itemHref} = itemSummary;
     const imageUrl = image.imageUrl;
@@ -28,8 +28,8 @@ function BuyerListingPage(props) {
             title="Contemplative Reptile"
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              ${title}
+            <Typography gutterBottom variant="body2" component="h2">
+              {title}
             </Typography>
           </CardContent>
         </CardActionArea>
