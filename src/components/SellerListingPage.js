@@ -88,9 +88,9 @@ class SellerListingPage extends Component {
               />
             }>
             <option value="" />
-            <option value={'tech'}>Tech</option>
-            <option value={'beauty'}>Beauty</option>
-            <option value={'household'}>Household</option>
+            <option value={'Technology'}>Tech</option>
+            <option value={'Beauty'}>Beauty</option>
+            <option value={'Household Appliances'}>Household</option>
           </Select>
         </FormControl>
       </div>

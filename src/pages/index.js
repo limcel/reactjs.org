@@ -125,26 +125,33 @@ class Home extends Component {
 
   handleChangeCategoryId(categoryId) {}
 
-  handleLogin() {
+  handleLoginAdmin() {
     this.setState({
       isLogin: true,
+      isAdmin: true,
+    });
+  }
+
+  handleLoginUser() {
+    this.setState({
+      isLogin: true,
+      isUser: true,
     });
   }
 
   handleLogout() {
     this.setState({
       isLogin: false,
+      isUser: false,
+      isAdmin: false,
     });
   }
 
   render() {
     const {babelLoaded, itemsBeauty, itemsHousehold, itemsTech} = this.state;
-    const {data, location, items, next} = this.props;
-    const {codeExamples, examples, marketing} = data;
+    const {data, location} = this.props;
+    const {codeExamples} = data;
     const {isLogin} = this.state;
-    const {handleLogin} = this.handleLogin;
-    const {handleLogout} = this.handleLogout;
-    console.log('in render');
 
     const code = codeExamples.edges.reduce((lookup, {node}) => {
       lookup[node.mdAbsolutePath] = node;
@@ -159,7 +166,7 @@ class Home extends Component {
         />
 
         <div css={{width: '100%'}}>
-          {/* <header css={{}}>
+          <header css={{}}>
             <div
               css={{
                 paddingTop: 45,
@@ -248,15 +255,17 @@ class Home extends Component {
                 </Container>
               </div>
             </div>
-          </header> */}
-          <BuyerListingPage itemSummaries={this.state.items} />
-
-          {/* <SellerListingPage
-            itemsBeauty={itemsBeauty}
-            itemsHousehold={itemsHousehold}
-            itemsTech={itemsTech}
-          /> */}
-
+          </header>
+          {this.state.isUser && (
+            <BuyerListingPage itemSummaries={this.state.items} />
+          )}
+          {this.state.isAdmin && (
+            <SellerListingPage
+              itemsBeauty={itemsBeauty}
+              itemsHousehold={itemsHousehold}
+              itemsTech={itemsTech}
+            />
+          )}
           <section
             css={{
               background: colors.dark,
@@ -277,7 +286,10 @@ class Home extends Component {
         </div>
       </Layout>
     ) : (
-      <LoginPage handleLogin={() => this.handleLogin()} />
+      <LoginPage
+        handleLoginAdmin={() => this.handleLoginAdmin()}
+        handleLoginUser={() => this.handleLoginUser()}
+      />
     );
   }
 }
