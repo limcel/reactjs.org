@@ -90,7 +90,7 @@ class SellerListingPage extends Component {
             <option value="" />
             <option value={'Technology'}>Tech</option>
             <option value={'Beauty'}>Beauty</option>
-            <option value={'Household Appliances'}>Household</option>
+            <option value={'Household'}>Household</option>
           </Select>
         </FormControl>
       </div>
@@ -100,11 +100,11 @@ class SellerListingPage extends Component {
   renderSelectedTable(category, props) {
     var listToMap;
 
-    if (category === 'beauty') {
+    if (category === 'Beauty') {
       listToMap = props.itemsBeauty;
-    } else if (category === 'tech') {
+    } else if (category === 'Technology') {
       listToMap = props.itemsTech;
-    } else if (category === 'household') {
+    } else if (category === 'Household') {
       listToMap = props.itemsHousehold;
     } else {
       listToMap = '';
@@ -160,6 +160,9 @@ class SellerListingPage extends Component {
     let itemsBeauty,
       itemsHousehold,
       itemsTech = this.props;
+    console.log('in seller listing apge');
+    console.log('items beauty');
+    console.log(itemsBeauty);
     const category = this.state;
 
     console.log(this.state.category);

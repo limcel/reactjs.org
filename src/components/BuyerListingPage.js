@@ -16,6 +16,7 @@ function BuyerListingPage(props) {
   const buttonMessage = bought
     ? 'Look forward to getting your mystery item!'
     : `Buy our mystery pack!\r\n$${averagePrice}`;
+  console.log('in buyerlistingpage');
   console.log(bought);
   const itemCards = itemSummaries.map(itemSummary => {
     const {title, image, price, itemHref} = itemSummary;
@@ -56,7 +57,12 @@ function BuyerListingPage(props) {
       <Grid
         container
         spacing={24}
-        style={{paddingLeft: '5%', paddingBottom: '3%', paddingTop: '5%', paddingRight: '5%'}}>
+        style={{
+          paddingLeft: '5%',
+          paddingBottom: '3%',
+          paddingTop: '5%',
+          paddingRight: '5%',
+        }}>
         {itemCards}
       </Grid>
       <div style={styles.buttonStyle}>
@@ -97,7 +103,7 @@ const styles = {
   },
   buttonStyle: {
     marginBottom: '3%',
-  }
+  },
 };
 
 export default withStyles(styles)(BuyerListingPage);

@@ -85,9 +85,9 @@ class Home extends Component {
     this.setState({bought: true});
   };
 
-  async componentWillMount() {
-    await this.getItems();
-    await this.getTheme();
+  componentWillMount() {
+    this.getItems();
+    this.getTheme();
     console.log('lol');
     console.log(this.state.currentTheme);
     console.log('lol');
@@ -175,6 +175,9 @@ class Home extends Component {
   }
 
   render() {
+    console.log('is login');
+    console.log('is user' + this.state.isUser ? this.state.isUser : null);
+    console.log('is admin' + this.state.isAdmin ? this.state.isAdmin : null);
     const {babelLoaded, itemsBeauty, itemsHousehold, itemsTech} = this.state;
     const {data, location} = this.props;
     const {codeExamples} = data;
