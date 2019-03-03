@@ -56,10 +56,10 @@ function BuyerListingPage(props) {
       <Grid
         container
         spacing={24}
-        style={{paddingLeft: '5%', paddingBottom: '3%', paddingTop: '5%'}}>
+        style={{paddingLeft: '5%', paddingBottom: '3%', paddingTop: '5%', paddingRight: '5%'}}>
         {itemCards}
       </Grid>
-      <div>
+      <div style={styles.buttonStyle}>
         <Button
           onClick={() => onBuy()}
           color="primary"
@@ -95,6 +95,9 @@ const styles = {
     alignItems: 'center',
     flexDirection: 'column',
   },
+  buttonStyle: {
+    marginBottom: '3%',
+  }
 };
 
 export default withStyles(styles)(BuyerListingPage);
