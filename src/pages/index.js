@@ -23,6 +23,7 @@ import LoginPage from 'components/LoginPage';
 import bannerImage from '../images/apple_items.jpg';
 import {white} from 'ansi-colors';
 import BuyerListingPage from 'components/BuyerListingPage';
+import SellerListingPage from 'components/SellerListingPage';
 
 class Home extends Component {
   state = {
@@ -170,6 +171,8 @@ class Home extends Component {
             </div>
           </header>
           <BuyerListingPage />
+          
+          {/*<SellerListingPage props="lalala" /> */}
 
           <section
             css={{
