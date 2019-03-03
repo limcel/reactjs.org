@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -12,7 +11,8 @@ import Grid from '@material-ui/core/Grid';
 
 function BuyerListingPage(props) {
   const {classes, itemSummaries} = props;
-  console.log(itemSummaries);
+  let totalPrice = getTotalPrice(itemSummaries);
+  let averagePrice = (totalPrice / itemSummaries.length + 1).toFixed(2);
   const itemCards = itemSummaries.map(itemSummary => {
     const {title, image, price, itemHref} = itemSummary;
     const imageUrl = image.imageUrl;
@@ -42,7 +42,7 @@ function BuyerListingPage(props) {
       </Card>
     );
     return (
-      <Grid item xs>
+      <Grid item xs={3}>
         {card}
       </Grid>
     );
@@ -52,41 +52,23 @@ function BuyerListingPage(props) {
       <Grid container spacing={24}>
         {itemCards}
       </Grid>
-      {/* <Card className={classes.card}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            alt="Contemplative Reptile"
-            className={classes.media}
-            height="140"
-            image={Puppy}
-            title="Contemplative Reptile"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              Lizard
-            </Typography>
-            <Typography component="p">
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary">
-            Share
-          </Button>
-          <Button size="small" color="primary">
-            Learn More
-          </Button>
-        </CardActions>
-      </Card> */}
+      <div>
+        <Button color="primary" variant="contained" size="large">
+          {`Buy our mystery pack!\r\n$${averagePrice}`}
+        </Button>
+      </div>
     </div>
   );
 }
 
-BuyerListingPage.propTypes = {
-  classes: PropTypes.object.isRequired,
+const getTotalPrice = itemSummaries => {
+  let priceArray = itemSummaries.map(itemSummary => {
+    return itemSummary.price.value;
+  });
+  return priceArray.reduce(
+    (left, right) => Number.parseFloat(left) + Number.parseFloat(right),
+    0,
+  );
 };
 
 const styles = {
@@ -98,9 +80,9 @@ const styles = {
     objectFit: 'cover',
   },
   cardStyles: {
-    marginTop: '3%',
-    marginBottom: '3%',
-    marginLeft: '2%',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
   },
 };
 
