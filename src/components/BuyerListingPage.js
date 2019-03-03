@@ -10,9 +10,13 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 function BuyerListingPage(props) {
-  const {classes, itemSummaries, onBuy} = props;
+  const {classes, itemSummaries, onBuy, bought} = props;
   let totalPrice = getTotalPrice(itemSummaries);
   let averagePrice = (totalPrice / itemSummaries.length + 1).toFixed(2);
+  const buttonMessage = bought
+    ? 'Look forward to getting your mystery item!'
+    : `Buy our mystery pack!\r\n$${averagePrice}`;
+  console.log(bought);
   const itemCards = itemSummaries.map(itemSummary => {
     const {title, image, price, itemHref} = itemSummary;
     const imageUrl = image.imageUrl;
@@ -34,9 +38,9 @@ function BuyerListingPage(props) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary" href={itemHref} target="_blank">
+          {/* <Button size="small" color="primary" href={itemHref} target="_blank">
             Visit seller's website
-          </Button>
+          </Button> */}
           <Typography>${price.value}</Typography>
         </CardActions>
       </Card>
@@ -57,11 +61,11 @@ function BuyerListingPage(props) {
       </Grid>
       <div>
         <Button
-          onClick={onBuy}
+          onClick={() => onBuy()}
           color="primary"
           variant="contained"
           size="large">
-          {`Buy our mystery pack!\r\n$${averagePrice}`}
+          {buttonMessage}
         </Button>
       </div>
     </div>

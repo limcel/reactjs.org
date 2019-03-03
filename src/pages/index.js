@@ -50,6 +50,7 @@ class Home extends Component {
     itemsTech: [],
     items: [],
     currentTheme: '',
+    bought: false,
   };
 
   async componentDidMount() {
@@ -69,7 +70,6 @@ class Home extends Component {
     const firebaseData = await itemsRef
       .once('value')
       .then(snapshot => snapshot.val());
-    console.log(firebaseData);
     this.setState({items: Object.values(firebaseData)});
   }
 
@@ -82,7 +82,9 @@ class Home extends Component {
     this.setState({currentTheme});
   }
 
-  onBuy() {}
+  onBuy = () => {
+    this.setState({bought: true});
+  };
 
   componentWillMount() {
     this.getItems();
@@ -237,13 +239,13 @@ class Home extends Component {
                     }}>
                     This Month's Theme
                   </h1>
-                  <p
+                  <h1
                     css={{
                       paddingTop: 15,
                       textAlign: 'center',
-                      fontSize: 40,
+                      fontSize: 60,
                       letterSpacing: '0.01em',
-                      fontWeight: 200,
+                      fontWeight: 400,
                       color: colors.white,
                       marginTop: '3%',
                       [media.size('xsmall')]: {
@@ -260,7 +262,7 @@ class Home extends Component {
                     }}>
                     {this.state.currentTheme.charAt(0).toUpperCase() +
                       this.state.currentTheme.slice(1)}
-                  </p>
+                  </h1>
                   <Flex
                     valign="center"
                     css={{
@@ -286,6 +288,7 @@ class Home extends Component {
             <BuyerListingPage
               itemSummaries={this.state.items}
               onBuy={this.onBuy}
+              bought={this.state.bought}
             />
           )}
           {this.state.isAdmin && (
