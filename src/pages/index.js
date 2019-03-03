@@ -20,7 +20,9 @@ import createOgUrl from 'utils/createOgUrl';
 import {babelURL} from 'site-constants';
 import logoWhiteSvg from 'icons/logo-white.svg';
 import LoginPage from 'components/LoginPage';
-import bannerImage from '../images/apple_items.jpg';
+import techImage from '../images/apple_items.jpg';
+import householdImage from '../images/household.jpg';
+import beautyImage from '../images/beauty.jpg';
 import {white} from 'ansi-colors';
 import BuyerListingPage from 'components/BuyerListingPage';
 import SellerListingPage from 'components/SellerListingPage';
@@ -29,6 +31,12 @@ import {itemsRef} from 'api/firebase';
 import {themesRef} from '../api/firebase';
 
 const getItems = itemsRef.once('value');
+
+const Banner = {
+  technology: techImage,
+  household: householdImage,
+  beauty: beautyImage,
+};
 
 class Home extends Component {
   state = {
@@ -192,7 +200,7 @@ class Home extends Component {
                   marginLeft: 'auto',
                   marginRight: 'auto',
                   position: 'relative',
-                  backgroundImage: `url(${bannerImage})`,
+                  backgroundImage: `url(${Banner[this.state.currentTheme]})`,
                   backgroundRepeat: 'no-repeat',
                   backgroundPosition: '100% 100%',
                   backgroundSize: '100% 110%',
