@@ -11,3 +11,4 @@ const config = {
 
 const firebaseDB = firebase.initializeApp(config).database();
 export const itemsRef = firebaseDB.ref('/').child('items');
+export const themesRef = firebaseDB.ref('/').child('theme');

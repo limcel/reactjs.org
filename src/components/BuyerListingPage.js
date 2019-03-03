@@ -49,7 +49,10 @@ function BuyerListingPage(props) {
   });
   return (
     <div style={styles.cardStyles}>
-      <Grid container spacing={24}>
+      <Grid
+        container
+        spacing={24}
+        style={{paddingLeft: '5%', paddingBottom: '3%', paddingTop: '5%'}}>
         {itemCards}
       </Grid>
       <div>

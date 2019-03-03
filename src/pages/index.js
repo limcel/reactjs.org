@@ -26,6 +26,7 @@ import BuyerListingPage from 'components/BuyerListingPage';
 import SellerListingPage from 'components/SellerListingPage';
 import {buyFlow} from 'api/buyFlow';
 import {itemsRef} from 'api/firebase';
+import {themesRef} from '../api/firebase';
 
 const getItems = itemsRef.once('value');
 
@@ -40,6 +41,7 @@ class Home extends Component {
     itemsHousehold: [],
     itemsTech: [],
     items: [],
+    currentTheme: '',
   };
 
   async componentDidMount() {
@@ -63,10 +65,20 @@ class Home extends Component {
     this.setState({items: Object.values(firebaseData)});
   }
 
+  async getTheme() {
+    const firebaseData = await themesRef
+      .once('value')
+      .then(snapshot => snapshot.val());
+    const themeArray = Object.values(firebaseData);
+    const currentTheme = themeArray[themeArray.length - 1];
+    this.setState({currentTheme});
+  }
+
   onBuy() {}
 
   componentWillMount() {
     this.getItems();
+    this.getTheme();
     fetch(
       'https://api.ebay.com/buy/browse/v1/item_summary/search?category_ids=' +
         21136 +
@@ -231,7 +243,8 @@ class Home extends Component {
                         fontSize: 40,
                       },
                     }}>
-                    Technology
+                    {this.state.currentTheme.charAt(0).toUpperCase() +
+                      this.state.currentTheme.slice(1)}
                   </p>
                   <Flex
                     valign="center"
