@@ -11,10 +11,43 @@ import Typography from '@material-ui/core/Typography';
 import Puppy from '../images/puppy.jpg';
 
 function BuyerListingPage(props) {
-  const {classes} = props;
+  const {classes, itemSummaries} = props;
+  const itemCards = itemSummaries.map(itemSummary => {
+    const {title, image, price, itemHref} = itemSummary;
+    const imageUrl = image.imageUrl;
+    let cardComponent = (
+      <Card className={classes.card}>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            alt="Contemplative Reptile"
+            className={classes.media}
+            height="140"
+            image={imageUrl}
+            title="Contemplative Reptile"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              ${title}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Button size="small" color="primary" href={itemHref} target="_blank">
+            Visit seller's website
+          </Button>
+          <Typography>
+            $$
+            {price}
+          </Typography>
+        </CardActions>
+      </Card>
+    );
+  });
   return (
     <div style={styles.cardStyles}>
-      <Card className={classes.card}>
+      {itemCards}
+      {/* <Card className={classes.card}>
         <CardActionArea>
           <CardMedia
             component="img"
@@ -42,7 +75,7 @@ function BuyerListingPage(props) {
             Learn More
           </Button>
         </CardActions>
-      </Card>
+      </Card> */}
     </div>
   );
 }

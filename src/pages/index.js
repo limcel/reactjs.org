@@ -153,7 +153,7 @@ class Home extends Component {
         />
 
         <div css={{width: '100%'}}>
-          <header css={{}}>
+          {/* <header css={{}}>
             <div
               css={{
                 paddingTop: 45,
@@ -242,14 +242,14 @@ class Home extends Component {
                 </Container>
               </div>
             </div>
-          </header>
-          {/* <BuyerListingPage /> */}
+          </header> */}
+          <BuyerListingPage />
 
-          <SellerListingPage
+          {/* <SellerListingPage
             itemsBeauty={itemsBeauty}
             itemsHousehold={itemsHousehold}
             itemsTech={itemsTech}
-          />
+          /> */}
 
           <section
             css={{
