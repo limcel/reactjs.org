@@ -40,7 +40,7 @@ class SellerListingPage extends Component {
     return (
       <div style={styles.sellerItemStyle}>
         <h2 style={styles.h2Styling}> Select Category Below </h2>
-      <FormControl variant="outlined">
+        <FormControl variant="outlined">
           <InputLabel
             ref={ref => {
               this.InputLabelRef = ref;
@@ -69,7 +69,7 @@ class SellerListingPage extends Component {
           </Select>
         </FormControl>
       </div>
-    )
+    );
   }
 
   renderSelectedTable() {
@@ -106,28 +106,14 @@ class SellerListingPage extends Component {
   }
 
   render() {
-    const { classes } = this.props;
 
-    //console.log(this.state.category);
+    console.log(this.state.category);
 
-    if (this.state.category === undefined) {
-      return (
-        <div>
-          {this.renderDropdown()}
-        </div>
-      );
-    } else if (this.state.category === 'Tech') {
-      return (
-        <div>
-          {this.renderDropdown()}
-          <div style={styles.middle}> 
-            {this.renderSelectedTable()}
-          </div>
-        </div>
-      );
-    } else {
-      // other categories chosen
-    }
+    return (
+      this.state.category === '' ? this.renderDropdownOptions() : this.renderSelectedTable()
+    );
+
+
 
   }
 }
@@ -150,7 +136,7 @@ const styles = ({
     paddingRight: '5%',
     marginBottom: '3%',
     marginTop: '3%',
-  }
+  },
 });
 
 
