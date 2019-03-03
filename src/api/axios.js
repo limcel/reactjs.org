@@ -1,5 +1,4 @@
 import Axios from 'axios';
-import OAuth from 'client-oauth2';
 
 const appID = 'hacktech-hacktech-PRD-f16de56b6-85aa39cf';
 const authToken =
@@ -7,12 +6,8 @@ const authToken =
 const clientSecret = 'PRD-16de56b6667d-60e1-4830-a274-ff9f';
 const fakeItemId = 'v1|110392198678|0';
 const fakeMastercard = 5395311725039872;
-
-const ebayAuth = new OAuth({
-  clientId: appID,
-  clientSecret,
-  scopes: ['notifications', 'gist'],
-});
+const userToken =
+  'v^1.1#i^1#f^0#p^3#r^0#I^3#t^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';
 
 // This obtains the user consent
 
@@ -20,7 +15,7 @@ export const axiosConfig = () => {
   return Axios.create({
     baseURL: 'https://apix.sandbox.ebay.com/',
     headers: {
-      Authorization: `Bearer ${authToken}`,
+      Authorization: `Bearer ${userToken}`,
       'Access-Control-Allow-Origin': '*',
     },
   });

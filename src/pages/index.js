@@ -60,10 +60,6 @@ class Home extends Component {
         console.error('Babel failed to load.');
       },
     );
-    await buyFlow();
-    // console.log('initiate');
-    // console.log(await initiateCheckoutSession());
-    // console.log('initiate');
   }
 
   componentWillMount() {
