@@ -11,11 +11,12 @@ import React from 'react';
 import {colors, fonts, media} from 'theme';
 
 import logoSvg from 'icons/logo.svg';
+import pandoraBoxLogo from '../../images/Pandora-Box.jpg';
 
 const Header = ({location}: {location: Location}) => (
   <header
     css={{
-      backgroundColor: colors.darker,
+      backgroundColor: '#151515',
       color: colors.white,
       position: 'fixed',
       zIndex: 1,
@@ -58,13 +59,13 @@ const Header = ({location}: {location: Location}) => (
             },
           }}
           to="/">
-          <img src={logoSvg} alt="" height="20" />
+          <img src={pandoraBoxLogo} alt="" height="45" />
           <span
             css={{
-              color: 'inherit',
+              color: '#F7BA00',
               marginLeft: 10,
-              fontWeight: 700,
-              fontSize: 20,
+              fontWeight: 500,
+              fontSize: 16,
               lineHeight: '20px',
               [media.lessThan('large')]: {
                 fontSize: 16,
@@ -82,7 +83,7 @@ const Header = ({location}: {location: Location}) => (
                 border: 0,
               },
             }}>
-            Pandora Bae
+            Bundle of Joy
           </span>
         </Link>
 
