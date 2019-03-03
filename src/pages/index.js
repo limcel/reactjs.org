@@ -24,18 +24,10 @@ import bannerImage from '../images/apple_items.jpg';
 import {white} from 'ansi-colors';
 import BuyerListingPage from 'components/BuyerListingPage';
 import SellerListingPage from 'components/SellerListingPage';
-import firebase from 'firebase';
-
 import {buyFlow} from 'api/buyFlow';
+import {itemsRef} from 'api/firebase';
 
-const config = {
-  apiKey: 'AIzaSyBg6o5rZBWF0yUkNfxSxoj-pCjP3ATK5A4',
-  authDomain: 'hacktech2019-42079.firebaseapp.com',
-  databaseURL: 'https://hacktech2019-42079.firebaseio.com',
-  projectId: 'hacktech2019-42079',
-  storageBucket: 'hacktech2019-42079.appspot.com',
-  messagingSenderId: '319199126538',
-};
+const getItems = itemsRef.once('value');
 
 class Home extends Component {
   state = {
@@ -47,6 +39,7 @@ class Home extends Component {
     itemsBeauty: [],
     itemsHousehold: [],
     itemsTech: [],
+    items: [],
   };
 
   async componentDidMount() {
@@ -62,8 +55,15 @@ class Home extends Component {
     );
   }
 
+  async getItems() {
+    const firebaseData = await itemsRef
+      .once('value')
+      .then(snapshot => snapshot.val());
+    this.setState({items: firebaseData});
+  }
+
   componentWillMount() {
-    firebase.initializeApp(config);
+    this.getItems();
     fetch(
       'https://api.ebay.com/buy/browse/v1/item_summary/search?category_ids=' +
         21092 +
@@ -247,7 +247,7 @@ class Home extends Component {
               </div>
             </div>
           </header> */}
-          <BuyerListingPage />
+          <BuyerListingPage itemSummaries={this.state.items} />
 
           {/* <SellerListingPage
             itemsBeauty={itemsBeauty}

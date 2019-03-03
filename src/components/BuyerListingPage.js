@@ -9,14 +9,15 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Puppy from '../images/puppy.jpg';
+import Grid from '@material-ui/core/Grid';
 
 function BuyerListingPage(props) {
   const {classes, itemSummaries} = props;
   const itemCards = itemSummaries.map(itemSummary => {
     const {title, image, price, itemHref} = itemSummary;
     const imageUrl = image.imageUrl;
-    let cardComponent = (
-      <Card className={classes.card}>
+    const card = (
+      <Card className={classes.card} key={title}>
         <CardActionArea>
           <CardMedia
             component="img"
@@ -36,17 +37,21 @@ function BuyerListingPage(props) {
           <Button size="small" color="primary" href={itemHref} target="_blank">
             Visit seller's website
           </Button>
-          <Typography>
-            $$
-            {price}
-          </Typography>
+          <Typography>${price.value}</Typography>
         </CardActions>
       </Card>
+    );
+    return (
+      <Grid item xs>
+        {card}
+      </Grid>
     );
   });
   return (
     <div style={styles.cardStyles}>
-      {itemCards}
+      <Grid container spacing={24}>
+        {itemCards}
+      </Grid>
       {/* <Card className={classes.card}>
         <CardActionArea>
           <CardMedia
