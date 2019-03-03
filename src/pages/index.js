@@ -180,7 +180,8 @@ class Home extends Component {
       lookup[node.mdAbsolutePath] = node;
       return lookup;
     }, {});
-
+    console.log('in render now');
+    console.log(this.props);
     return isLogin ? (
       <Layout location={location}>
         <TitleAndMetaTags
