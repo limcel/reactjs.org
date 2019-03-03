@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 function BuyerListingPage(props) {
-  const {classes, itemSummaries} = props;
+  const {classes, itemSummaries, onBuy} = props;
   let totalPrice = getTotalPrice(itemSummaries);
   let averagePrice = (totalPrice / itemSummaries.length + 1).toFixed(2);
   const itemCards = itemSummaries.map(itemSummary => {
@@ -53,7 +53,11 @@ function BuyerListingPage(props) {
         {itemCards}
       </Grid>
       <div>
-        <Button color="primary" variant="contained" size="large">
+        <Button
+          onClick={onBuy}
+          color="primary"
+          variant="contained"
+          size="large">
           {`Buy our mystery pack!\r\n$${averagePrice}`}
         </Button>
       </div>

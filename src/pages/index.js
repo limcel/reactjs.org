@@ -63,6 +63,8 @@ class Home extends Component {
     this.setState({items: Object.values(firebaseData)});
   }
 
+  onBuy() {}
+
   componentWillMount() {
     this.getItems();
     fetch(
@@ -159,7 +161,7 @@ class Home extends Component {
         />
 
         <div css={{width: '100%'}}>
-          {/* <header css={{}}>
+          <header css={{}}>
             <div
               css={{
                 paddingTop: 45,
@@ -248,8 +250,11 @@ class Home extends Component {
                 </Container>
               </div>
             </div>
-          </header> */}
-          <BuyerListingPage itemSummaries={this.state.items} />
+          </header>
+          <BuyerListingPage
+            itemSummaries={this.state.items}
+            onBuy={this.onBuy}
+          />
 
           {/* <SellerListingPage
             itemsBeauty={itemsBeauty}
