@@ -138,7 +138,36 @@ class SellerListingPage extends Component {
     console.log(this.state.category);
 
     return (
-      this.state.category === '' ? this.renderDropdownOptions() : this.renderSelectedTable(this.state.category, this.props)
+     <div style={styles.sellerItemStyle}>
+        <h2 style={styles.h2Styling}> Select Category Below </h2>
+        <FormControl variant="outlined">
+          <InputLabel
+            ref={ref => {
+              InputLabelRef = ref;
+            }}
+            htmlFor="outlined-category-native-simple">
+            Category
+          </InputLabel>
+          <Select
+            native
+            value={this.state.category}
+            onChange={this.handleChange('category')}
+            input={
+              <OutlinedInput
+                name="category"
+                labelWidth={this.state.labelWidth}
+                id="outlined-category-native-simple"
+              />
+            }>
+            <option value="" />
+            <option value={'tech'}>Tech</option>
+            <option value={'beauty'}>Beauty</option>
+            <option value={'household'}>Household</option>
+          </Select>
+        </FormControl>
+
+        {this.state.category === '' ? '' : this.renderSelectedTable(this.state.category, this.props)}
+      </div>
     );
   }
 }
