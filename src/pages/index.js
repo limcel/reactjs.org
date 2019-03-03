@@ -180,9 +180,9 @@ class Home extends Component {
               </div>
             </div>
           </header>
-          <BuyerListingPage />
+          {/* <BuyerListingPage /> */}
 
-          {/*<SellerListingPage /> */}
+          <SellerListingPage />
 
           <section
             css={{
