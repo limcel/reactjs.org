@@ -20,9 +20,9 @@ import createOgUrl from 'utils/createOgUrl';
 import {babelURL} from 'site-constants';
 import logoWhiteSvg from 'icons/logo-white.svg';
 import LoginPage from 'components/LoginPage';
-import techImage from '../images/apple_items.jpg';
+import techImage from 'images/apple_items.jpg';
 import householdImage from '../images/household.jpg';
-import beautyImage from '../images/beauty.jpg';
+import beautyImage from 'images/beauty.jpg';
 import {white} from 'ansi-colors';
 import BuyerListingPage from 'components/BuyerListingPage';
 import SellerListingPage from 'components/SellerListingPage';
@@ -85,21 +85,24 @@ class Home extends Component {
     this.setState({bought: true});
   };
 
-  componentWillMount() {
-    this.getItems();
-    this.getTheme();
-    fetch(
-      'https://api.ebay.com/buy/browse/v1/item_summary/search?category_ids=' +
-        21136 +
-        '&limit=20',
-      {
-        method: 'GET',
-        headers: {
-          Authorization:
-            'Bearer v^1.1#i^1#p^1#I^3#r^0#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTu9oWARRS1SDGsA6JA5r0z3R3YTZYuyCZAC1uqlmidnblDx86LuXdpF0NSqzb4QIMkJvKQYuKDkAYIwUcCGiUm9EeNEZX4QI2gPIzPiPxQEu/MLmVbCVBYhMTNJLtz7rnnft93zrl3L9NZOXJ697zuU1WBEaU9nUxnaSDAjmZGVlbMGFNWOqGihClwCPR0Tuks7yo7NgvKpuFIiwF0bAuCYIdpWFDyjVEi41qSLUMdSpZsAighRUrFF8yXOIqRHNdGtmIbRDCZiBIKr0RCqqjyERWkQ7yIrdaZmI12lKgVOVlluJCqqGGtNizjcQgzIGlBJFsoSnAMGyEZHj+NLCfhR+CpMBNuJoJNwIW6bWEXiiFiPlzJn+sWYD0/VBlC4CIchIgl43NT9fFkYs7Cxll0QaxYXocUklEGDn6rs1UQbJKNDDj/MtD3llIZRQEQEnQst8LgoFL8DJhLgO9LLdeqgBHVUG0tG2Y5USiKlHNt15TR+XF4Fl0lNd9VAhbSUfZCimI10g8DBeXfFuIQyUTQ+1qUkQ1d04EbJebMjt8fb2ggYq2y0oaA0koO/GhYnCA1VlSBIKZFMizIMh9RtPxCuWh5mYesVGdbqu6JBoMLbTQbYNRgqDZMgTbYqd6qd+Ma8hAV+oUGNOSbvaTmsphBrZaXV2BiIYL+64UzMDAbIVdPZxAYiDB0wJcI59pxdJUYOujXYr58OmCUaEXIkWi6vb2daucp211GcwzD0vctmJ9SWoGJm63D9Ho9569feAKp+1QUgGdCXUJZB2PpwLWKAVjLiBgfFtgIl9d9MKzYUOu/DAWc6cEdUawOETiRE/FOlNZkEWghvhgdEssXKe3hAGk5S5qy2waQY8gKIBVcZxkTuLoq8YLG8WENkKoY0chQRNPItKCKJKsBwACQTiuR8P+pUS621FOK7YAG29CVbFEKvnjF7qoNsouyKWAY2HCxVX9OktAjecXpeb0+LIpeDIiDyI5OebVNKbZJ2zLe1DxTi4/6snjHHSdpmhkkpw2QLM6GdpU2s3PS0/Fxf01xwvnLJVJXc+c05WeTgisUygXQzrj4LwpV7x1bjXYbsPAmgFzbMIDbxF52oq+x/A5zr7w03sU7qIfJG/c6d0VrWzF0XEItV4fdVc6qLqNrizUrCKzICmwtf1m86vycNmb/g7NoWPTm2RAB9Qr8r6QH33JjJf6H7QrsZroCO/FFmaGZO9nJzB2VZUvKy66fAHUEKF3WKKgvs/DlzQVUG8g6su6WVgaWTtyxtaXgXt3zADN+4GY9sowdXXDNZiaeHalgb6iuYiMMz/Asx3IC38xMPjtazt5afvM39l01p/uP9Lf09y56NvFjaPVXuz5kqgacAoGKkvKuQMlDxKP7jlLx3fCdxC+hr6dXrfztuxPPNxF97mnikd74ge5P1p6MHg69u/mn8eRtax58XV+C7m3/6/hkbvqorZurm/fdtGXCpNvbji0fP+vX955+K/HE96889fPKj08er1l1su/U9pf73pyx5WD8sV2t6rSXln8x5oUT9ePGvHZg3Kr1Gtg4tm7St9O298zdULN21My0u/PzeZPGHqwW3l6x/oMV++++sar60Npt2eT7gfK+0o+W9PZu3PvcLWv6Z+z6c/e+NxbsTbya/fQIHXe790w9uO7x5FFVmLljSts6riqqvrh/w57OVYc3rYtuO7J6efoeUzz0ZQn6LPJk3x8Tl/7t0j8seqb9uk1T5sdG1BBTf8+l7x+JnM3p8RAAAA==',
+  async componentWillMount() {
+    await this.getItems();
+    await this.getTheme();
+    console.log(this.state.currentTheme);
+    console.log(Banner[this.state.currentTheme]);
+    window
+      .fetch(
+        'https://api.ebay.com/buy/browse/v1/item_summary/search?category_ids=' +
+          21136 +
+          '&limit=20',
+        {
+          method: 'GET',
+          headers: {
+            Authorization:
+              'Bearer v^1.1#i^1#p^1#I^3#r^0#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTu9oWARRS1SDGsA6JA5r0z3R3YTZYuyCZAC1uqlmidnblDx86LuXdpF0NSqzb4QIMkJvKQYuKDkAYIwUcCGiUm9EeNEZX4QI2gPIzPiPxQEu/MLmVbCVBYhMTNJLtz7rnnft93zrl3L9NZOXJ697zuU1WBEaU9nUxnaSDAjmZGVlbMGFNWOqGihClwCPR0Tuks7yo7NgvKpuFIiwF0bAuCYIdpWFDyjVEi41qSLUMdSpZsAighRUrFF8yXOIqRHNdGtmIbRDCZiBIKr0RCqqjyERWkQ7yIrdaZmI12lKgVOVlluJCqqGGtNizjcQgzIGlBJFsoSnAMGyEZHj+NLCfhR+CpMBNuJoJNwIW6bWEXiiFiPlzJn+sWYD0/VBlC4CIchIgl43NT9fFkYs7Cxll0QaxYXocUklEGDn6rs1UQbJKNDDj/MtD3llIZRQEQEnQst8LgoFL8DJhLgO9LLdeqgBHVUG0tG2Y5USiKlHNt15TR+XF4Fl0lNd9VAhbSUfZCimI10g8DBeXfFuIQyUTQ+1qUkQ1d04EbJebMjt8fb2ggYq2y0oaA0koO/GhYnCA1VlSBIKZFMizIMh9RtPxCuWh5mYesVGdbqu6JBoMLbTQbYNRgqDZMgTbYqd6qd+Ma8hAV+oUGNOSbvaTmsphBrZaXV2BiIYL+64UzMDAbIVdPZxAYiDB0wJcI59pxdJUYOujXYr58OmCUaEXIkWi6vb2daucp211GcwzD0vctmJ9SWoGJm63D9Ho9569feAKp+1QUgGdCXUJZB2PpwLWKAVjLiBgfFtgIl9d9MKzYUOu/DAWc6cEdUawOETiRE/FOlNZkEWghvhgdEssXKe3hAGk5S5qy2waQY8gKIBVcZxkTuLoq8YLG8WENkKoY0chQRNPItKCKJKsBwACQTiuR8P+pUS621FOK7YAG29CVbFEKvnjF7qoNsouyKWAY2HCxVX9OktAjecXpeb0+LIpeDIiDyI5OebVNKbZJ2zLe1DxTi4/6snjHHSdpmhkkpw2QLM6GdpU2s3PS0/Fxf01xwvnLJVJXc+c05WeTgisUygXQzrj4LwpV7x1bjXYbsPAmgFzbMIDbxF52oq+x/A5zr7w03sU7qIfJG/c6d0VrWzF0XEItV4fdVc6qLqNrizUrCKzICmwtf1m86vycNmb/g7NoWPTm2RAB9Qr8r6QH33JjJf6H7QrsZroCO/FFmaGZO9nJzB2VZUvKy66fAHUEKF3WKKgvs/DlzQVUG8g6su6WVgaWTtyxtaXgXt3zADN+4GY9sowdXXDNZiaeHalgb6iuYiMMz/Asx3IC38xMPjtazt5afvM39l01p/uP9Lf09y56NvFjaPVXuz5kqgacAoGKkvKuQMlDxKP7jlLx3fCdxC+hr6dXrfztuxPPNxF97mnikd74ge5P1p6MHg69u/mn8eRtax58XV+C7m3/6/hkbvqorZurm/fdtGXCpNvbji0fP+vX955+K/HE96889fPKj08er1l1su/U9pf73pyx5WD8sV2t6rSXln8x5oUT9ePGvHZg3Kr1Gtg4tm7St9O298zdULN21My0u/PzeZPGHqwW3l6x/oMV++++sar60Npt2eT7gfK+0o+W9PZu3PvcLWv6Z+z6c/e+NxbsTbya/fQIHXe790w9uO7x5FFVmLljSts6riqqvrh/w57OVYc3rYtuO7J6efoeUzz0ZQn6LPJk3x8Tl/7t0j8seqb9uk1T5sdG1BBTf8+l7x+JnM3p8RAAAA==',
+          },
         },
-      },
-    )
+      )
       .then(response => response.json())
       .then(response =>
         this.setState({
@@ -107,18 +110,19 @@ class Home extends Component {
         }),
       );
 
-    fetch(
-      'https://api.ebay.com/buy/browse/v1/item_summary/search?category_ids=' +
-        13595 +
-        '&limit=20',
-      {
-        method: 'GET',
-        headers: {
-          Authorization:
-            'Bearer v^1.1#i^1#p^1#I^3#r^0#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTu9oWARRS1SDGsA6JA5r0z3R3YTZYuyCZAC1uqlmidnblDx86LuXdpF0NSqzb4QIMkJvKQYuKDkAYIwUcCGiUm9EeNEZX4QI2gPIzPiPxQEu/MLmVbCVBYhMTNJLtz7rnnft93zrl3L9NZOXJ697zuU1WBEaU9nUxnaSDAjmZGVlbMGFNWOqGihClwCPR0Tuks7yo7NgvKpuFIiwF0bAuCYIdpWFDyjVEi41qSLUMdSpZsAighRUrFF8yXOIqRHNdGtmIbRDCZiBIKr0RCqqjyERWkQ7yIrdaZmI12lKgVOVlluJCqqGGtNizjcQgzIGlBJFsoSnAMGyEZHj+NLCfhR+CpMBNuJoJNwIW6bWEXiiFiPlzJn+sWYD0/VBlC4CIchIgl43NT9fFkYs7Cxll0QaxYXocUklEGDn6rs1UQbJKNDDj/MtD3llIZRQEQEnQst8LgoFL8DJhLgO9LLdeqgBHVUG0tG2Y5USiKlHNt15TR+XF4Fl0lNd9VAhbSUfZCimI10g8DBeXfFuIQyUTQ+1qUkQ1d04EbJebMjt8fb2ggYq2y0oaA0koO/GhYnCA1VlSBIKZFMizIMh9RtPxCuWh5mYesVGdbqu6JBoMLbTQbYNRgqDZMgTbYqd6qd+Ma8hAV+oUGNOSbvaTmsphBrZaXV2BiIYL+64UzMDAbIVdPZxAYiDB0wJcI59pxdJUYOujXYr58OmCUaEXIkWi6vb2daucp211GcwzD0vctmJ9SWoGJm63D9Ho9569feAKp+1QUgGdCXUJZB2PpwLWKAVjLiBgfFtgIl9d9MKzYUOu/DAWc6cEdUawOETiRE/FOlNZkEWghvhgdEssXKe3hAGk5S5qy2waQY8gKIBVcZxkTuLoq8YLG8WENkKoY0chQRNPItKCKJKsBwACQTiuR8P+pUS621FOK7YAG29CVbFEKvnjF7qoNsouyKWAY2HCxVX9OktAjecXpeb0+LIpeDIiDyI5OebVNKbZJ2zLe1DxTi4/6snjHHSdpmhkkpw2QLM6GdpU2s3PS0/Fxf01xwvnLJVJXc+c05WeTgisUygXQzrj4LwpV7x1bjXYbsPAmgFzbMIDbxF52oq+x/A5zr7w03sU7qIfJG/c6d0VrWzF0XEItV4fdVc6qLqNrizUrCKzICmwtf1m86vycNmb/g7NoWPTm2RAB9Qr8r6QH33JjJf6H7QrsZroCO/FFmaGZO9nJzB2VZUvKy66fAHUEKF3WKKgvs/DlzQVUG8g6su6WVgaWTtyxtaXgXt3zADN+4GY9sowdXXDNZiaeHalgb6iuYiMMz/Asx3IC38xMPjtazt5afvM39l01p/uP9Lf09y56NvFjaPVXuz5kqgacAoGKkvKuQMlDxKP7jlLx3fCdxC+hr6dXrfztuxPPNxF97mnikd74ge5P1p6MHg69u/mn8eRtax58XV+C7m3/6/hkbvqorZurm/fdtGXCpNvbji0fP+vX955+K/HE96889fPKj08er1l1su/U9pf73pyx5WD8sV2t6rSXln8x5oUT9ePGvHZg3Kr1Gtg4tm7St9O298zdULN21My0u/PzeZPGHqwW3l6x/oMV++++sar60Npt2eT7gfK+0o+W9PZu3PvcLWv6Z+z6c/e+NxbsTbya/fQIHXe790w9uO7x5FFVmLljSts6riqqvrh/w57OVYc3rYtuO7J6efoeUzz0ZQn6LPJk3x8Tl/7t0j8seqb9uk1T5sdG1BBTf8+l7x+JnM3p8RAAAA==',
+    window
+      .fetch(
+        'https://api.ebay.com/buy/browse/v1/item_summary/search?category_ids=' +
+          13595 +
+          '&limit=20',
+        {
+          method: 'GET',
+          headers: {
+            Authorization:
+              'Bearer v^1.1#i^1#p^1#I^3#r^0#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTu9oWARRS1SDGsA6JA5r0z3R3YTZYuyCZAC1uqlmidnblDx86LuXdpF0NSqzb4QIMkJvKQYuKDkAYIwUcCGiUm9EeNEZX4QI2gPIzPiPxQEu/MLmVbCVBYhMTNJLtz7rnnft93zrl3L9NZOXJ697zuU1WBEaU9nUxnaSDAjmZGVlbMGFNWOqGihClwCPR0Tuks7yo7NgvKpuFIiwF0bAuCYIdpWFDyjVEi41qSLUMdSpZsAighRUrFF8yXOIqRHNdGtmIbRDCZiBIKr0RCqqjyERWkQ7yIrdaZmI12lKgVOVlluJCqqGGtNizjcQgzIGlBJFsoSnAMGyEZHj+NLCfhR+CpMBNuJoJNwIW6bWEXiiFiPlzJn+sWYD0/VBlC4CIchIgl43NT9fFkYs7Cxll0QaxYXocUklEGDn6rs1UQbJKNDDj/MtD3llIZRQEQEnQst8LgoFL8DJhLgO9LLdeqgBHVUG0tG2Y5USiKlHNt15TR+XF4Fl0lNd9VAhbSUfZCimI10g8DBeXfFuIQyUTQ+1qUkQ1d04EbJebMjt8fb2ggYq2y0oaA0koO/GhYnCA1VlSBIKZFMizIMh9RtPxCuWh5mYesVGdbqu6JBoMLbTQbYNRgqDZMgTbYqd6qd+Ma8hAV+oUGNOSbvaTmsphBrZaXV2BiIYL+64UzMDAbIVdPZxAYiDB0wJcI59pxdJUYOujXYr58OmCUaEXIkWi6vb2daucp211GcwzD0vctmJ9SWoGJm63D9Ho9569feAKp+1QUgGdCXUJZB2PpwLWKAVjLiBgfFtgIl9d9MKzYUOu/DAWc6cEdUawOETiRE/FOlNZkEWghvhgdEssXKe3hAGk5S5qy2waQY8gKIBVcZxkTuLoq8YLG8WENkKoY0chQRNPItKCKJKsBwACQTiuR8P+pUS621FOK7YAG29CVbFEKvnjF7qoNsouyKWAY2HCxVX9OktAjecXpeb0+LIpeDIiDyI5OebVNKbZJ2zLe1DxTi4/6snjHHSdpmhkkpw2QLM6GdpU2s3PS0/Fxf01xwvnLJVJXc+c05WeTgisUygXQzrj4LwpV7x1bjXYbsPAmgFzbMIDbxF52oq+x/A5zr7w03sU7qIfJG/c6d0VrWzF0XEItV4fdVc6qLqNrizUrCKzICmwtf1m86vycNmb/g7NoWPTm2RAB9Qr8r6QH33JjJf6H7QrsZroCO/FFmaGZO9nJzB2VZUvKy66fAHUEKF3WKKgvs/DlzQVUG8g6su6WVgaWTtyxtaXgXt3zADN+4GY9sowdXXDNZiaeHalgb6iuYiMMz/Asx3IC38xMPjtazt5afvM39l01p/uP9Lf09y56NvFjaPVXuz5kqgacAoGKkvKuQMlDxKP7jlLx3fCdxC+hr6dXrfztuxPPNxF97mnikd74ge5P1p6MHg69u/mn8eRtax58XV+C7m3/6/hkbvqorZurm/fdtGXCpNvbji0fP+vX955+K/HE96889fPKj08er1l1su/U9pf73pyx5WD8sV2t6rSXln8x5oUT9ePGvHZg3Kr1Gtg4tm7St9O298zdULN21My0u/PzeZPGHqwW3l6x/oMV++++sar60Npt2eT7gfK+0o+W9PZu3PvcLWv6Z+z6c/e+NxbsTbya/fQIHXe790w9uO7x5FFVmLljSts6riqqvrh/w57OVYc3rYtuO7J6efoeUzz0ZQn6LPJk3x8Tl/7t0j8seqb9uk1T5sdG1BBTf8+l7x+JnM3p8RAAAA==',
+          },
         },
-      },
-    )
+      )
       .then(response => response.json())
       .then(response =>
         this.setState({
@@ -126,18 +130,19 @@ class Home extends Component {
         }),
       );
 
-    fetch(
-      'https://api.ebay.com/buy/browse/v1/item_summary/search?category_ids=' +
-        21092 +
-        '&limit=20',
-      {
-        method: 'GET',
-        headers: {
-          Authorization:
-            'Bearer v^1.1#i^1#p^1#I^3#r^0#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTu9oWARRS1SDGsA6JA5r0z3R3YTZYuyCZAC1uqlmidnblDx86LuXdpF0NSqzb4QIMkJvKQYuKDkAYIwUcCGiUm9EeNEZX4QI2gPIzPiPxQEu/MLmVbCVBYhMTNJLtz7rnnft93zrl3L9NZOXJ697zuU1WBEaU9nUxnaSDAjmZGVlbMGFNWOqGihClwCPR0Tuks7yo7NgvKpuFIiwF0bAuCYIdpWFDyjVEi41qSLUMdSpZsAighRUrFF8yXOIqRHNdGtmIbRDCZiBIKr0RCqqjyERWkQ7yIrdaZmI12lKgVOVlluJCqqGGtNizjcQgzIGlBJFsoSnAMGyEZHj+NLCfhR+CpMBNuJoJNwIW6bWEXiiFiPlzJn+sWYD0/VBlC4CIchIgl43NT9fFkYs7Cxll0QaxYXocUklEGDn6rs1UQbJKNDDj/MtD3llIZRQEQEnQst8LgoFL8DJhLgO9LLdeqgBHVUG0tG2Y5USiKlHNt15TR+XF4Fl0lNd9VAhbSUfZCimI10g8DBeXfFuIQyUTQ+1qUkQ1d04EbJebMjt8fb2ggYq2y0oaA0koO/GhYnCA1VlSBIKZFMizIMh9RtPxCuWh5mYesVGdbqu6JBoMLbTQbYNRgqDZMgTbYqd6qd+Ma8hAV+oUGNOSbvaTmsphBrZaXV2BiIYL+64UzMDAbIVdPZxAYiDB0wJcI59pxdJUYOujXYr58OmCUaEXIkWi6vb2daucp211GcwzD0vctmJ9SWoGJm63D9Ho9569feAKp+1QUgGdCXUJZB2PpwLWKAVjLiBgfFtgIl9d9MKzYUOu/DAWc6cEdUawOETiRE/FOlNZkEWghvhgdEssXKe3hAGk5S5qy2waQY8gKIBVcZxkTuLoq8YLG8WENkKoY0chQRNPItKCKJKsBwACQTiuR8P+pUS621FOK7YAG29CVbFEKvnjF7qoNsouyKWAY2HCxVX9OktAjecXpeb0+LIpeDIiDyI5OebVNKbZJ2zLe1DxTi4/6snjHHSdpmhkkpw2QLM6GdpU2s3PS0/Fxf01xwvnLJVJXc+c05WeTgisUygXQzrj4LwpV7x1bjXYbsPAmgFzbMIDbxF52oq+x/A5zr7w03sU7qIfJG/c6d0VrWzF0XEItV4fdVc6qLqNrizUrCKzICmwtf1m86vycNmb/g7NoWPTm2RAB9Qr8r6QH33JjJf6H7QrsZroCO/FFmaGZO9nJzB2VZUvKy66fAHUEKF3WKKgvs/DlzQVUG8g6su6WVgaWTtyxtaXgXt3zADN+4GY9sowdXXDNZiaeHalgb6iuYiMMz/Asx3IC38xMPjtazt5afvM39l01p/uP9Lf09y56NvFjaPVXuz5kqgacAoGKkvKuQMlDxKP7jlLx3fCdxC+hr6dXrfztuxPPNxF97mnikd74ge5P1p6MHg69u/mn8eRtax58XV+C7m3/6/hkbvqorZurm/fdtGXCpNvbji0fP+vX955+K/HE96889fPKj08er1l1su/U9pf73pyx5WD8sV2t6rSXln8x5oUT9ePGvHZg3Kr1Gtg4tm7St9O298zdULN21My0u/PzeZPGHqwW3l6x/oMV++++sar60Npt2eT7gfK+0o+W9PZu3PvcLWv6Z+z6c/e+NxbsTbya/fQIHXe790w9uO7x5FFVmLljSts6riqqvrh/w57OVYc3rYtuO7J6efoeUzz0ZQn6LPJk3x8Tl/7t0j8seqb9uk1T5sdG1BBTf8+l7x+JnM3p8RAAAA==',
+    window
+      .fetch(
+        'https://api.ebay.com/buy/browse/v1/item_summary/search?category_ids=' +
+          21092 +
+          '&limit=20',
+        {
+          method: 'GET',
+          headers: {
+            Authorization:
+              'Bearer v^1.1#i^1#p^1#I^3#r^0#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTu9oWARRS1SDGsA6JA5r0z3R3YTZYuyCZAC1uqlmidnblDx86LuXdpF0NSqzb4QIMkJvKQYuKDkAYIwUcCGiUm9EeNEZX4QI2gPIzPiPxQEu/MLmVbCVBYhMTNJLtz7rnnft93zrl3L9NZOXJ697zuU1WBEaU9nUxnaSDAjmZGVlbMGFNWOqGihClwCPR0Tuks7yo7NgvKpuFIiwF0bAuCYIdpWFDyjVEi41qSLUMdSpZsAighRUrFF8yXOIqRHNdGtmIbRDCZiBIKr0RCqqjyERWkQ7yIrdaZmI12lKgVOVlluJCqqGGtNizjcQgzIGlBJFsoSnAMGyEZHj+NLCfhR+CpMBNuJoJNwIW6bWEXiiFiPlzJn+sWYD0/VBlC4CIchIgl43NT9fFkYs7Cxll0QaxYXocUklEGDn6rs1UQbJKNDDj/MtD3llIZRQEQEnQst8LgoFL8DJhLgO9LLdeqgBHVUG0tG2Y5USiKlHNt15TR+XF4Fl0lNd9VAhbSUfZCimI10g8DBeXfFuIQyUTQ+1qUkQ1d04EbJebMjt8fb2ggYq2y0oaA0koO/GhYnCA1VlSBIKZFMizIMh9RtPxCuWh5mYesVGdbqu6JBoMLbTQbYNRgqDZMgTbYqd6qd+Ma8hAV+oUGNOSbvaTmsphBrZaXV2BiIYL+64UzMDAbIVdPZxAYiDB0wJcI59pxdJUYOujXYr58OmCUaEXIkWi6vb2daucp211GcwzD0vctmJ9SWoGJm63D9Ho9569feAKp+1QUgGdCXUJZB2PpwLWKAVjLiBgfFtgIl9d9MKzYUOu/DAWc6cEdUawOETiRE/FOlNZkEWghvhgdEssXKe3hAGk5S5qy2waQY8gKIBVcZxkTuLoq8YLG8WENkKoY0chQRNPItKCKJKsBwACQTiuR8P+pUS621FOK7YAG29CVbFEKvnjF7qoNsouyKWAY2HCxVX9OktAjecXpeb0+LIpeDIiDyI5OebVNKbZJ2zLe1DxTi4/6snjHHSdpmhkkpw2QLM6GdpU2s3PS0/Fxf01xwvnLJVJXc+c05WeTgisUygXQzrj4LwpV7x1bjXYbsPAmgFzbMIDbxF52oq+x/A5zr7w03sU7qIfJG/c6d0VrWzF0XEItV4fdVc6qLqNrizUrCKzICmwtf1m86vycNmb/g7NoWPTm2RAB9Qr8r6QH33JjJf6H7QrsZroCO/FFmaGZO9nJzB2VZUvKy66fAHUEKF3WKKgvs/DlzQVUG8g6su6WVgaWTtyxtaXgXt3zADN+4GY9sowdXXDNZiaeHalgb6iuYiMMz/Asx3IC38xMPjtazt5afvM39l01p/uP9Lf09y56NvFjaPVXuz5kqgacAoGKkvKuQMlDxKP7jlLx3fCdxC+hr6dXrfztuxPPNxF97mnikd74ge5P1p6MHg69u/mn8eRtax58XV+C7m3/6/hkbvqorZurm/fdtGXCpNvbji0fP+vX955+K/HE96889fPKj08er1l1su/U9pf73pyx5WD8sV2t6rSXln8x5oUT9ePGvHZg3Kr1Gtg4tm7St9O298zdULN21My0u/PzeZPGHqwW3l6x/oMV++++sar60Npt2eT7gfK+0o+W9PZu3PvcLWv6Z+z6c/e+NxbsTbya/fQIHXe790w9uO7x5FFVmLljSts6riqqvrh/w57OVYc3rYtuO7J6efoeUzz0ZQn6LPJk3x8Tl/7t0j8seqb9uk1T5sdG1BBTf8+l7x+JnM3p8RAAAA==',
+          },
         },
-      },
-    )
+      )
       .then(response => response.json())
       .then(response =>
         this.setState({
