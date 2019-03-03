@@ -24,6 +24,7 @@ import bannerImage from '../images/apple_items.jpg';
 import {white} from 'ansi-colors';
 import BuyerListingPage from 'components/BuyerListingPage';
 import SellerListingPage from 'components/SellerListingPage';
+import delay from 'lodash/delay';
 
 class Home extends Component {
   state = {
@@ -31,6 +32,10 @@ class Home extends Component {
     isLogin: false,
     isAdmin: false,
     isUser: false,
+    categoryId: 20863,
+    itemsBeauty: [],
+    itemsHousehold: [],
+    itemsTech: [],
   };
 
   componentDidMount() {
@@ -48,25 +53,69 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    console.log('component will mount ran');
-    const apiKey =
-      'v^1.1#i^1#f^0#I^3#r^0#p^1#t^H4sIAAAAAAAAAOVXfWwURRTv9dpihYJWogiYHgtoBHdv9/b27nbhDq8tDYeFVq6ULwH3Y7Zdure77MzZXiDYVAMxYNQ/0MYAKVGDRUGKaIga/wA0gRAjEsJHlEojxL+IMSQmRMXZ7VGulQClrZB4d8nevHnz5v1+772ZfXRrUfGMjfM2/lHiGZXf0Uq35ns8zGi6uKhw5lhv/sTCPDpHwdPROq21oM3762wopnRLWASgZRoQ+FpSugEFVxgl0rYhmCLUoGCIKQAFJAvJ+IJqIUDRgmWbyJRNnfAlKqNEMAxYhQmHpVCYjTAcj6XGdZt1ZpQAAYVWFSYYjgRDUkDC0xCmQcKASDRQlAjQDE/SLP7V0WGB4wQ2QgW4yHLCVw9sqJkGVqFoIuZ6K7hr7RxXb+2pCCGwETZCxBLxqmRNPFE5d2HdbH+OrViWhiQSURr2H1WYCvDVi3oa3Hob6GoLybQsAwgJf6x3h/5Ghfh1Z+7CfZdpRpHDUpgFTJDlmYjL9NCprDLtlIhu7Ycj0RRSdVUFYCANZW7HKGZDWgNklB0txCYSlT7n8Xxa1DVVA3aUmFseXxavrSVijaLchIDcSPb9qV1USapMSAFcSAqREU4UWV5Wsxv1WsvSPGCnCtNQNIc06FtoonKAvQYDuQnmcIOVaowaO64ix6NcPb6PQ2a5E9TeKKZRo+HEFaQwET53ePsI9K1GyNakNAJ9FgZOuBRFCdGyNIUYOOnmYjZ9WmCUaETIEvz+5uZmqpmlTLvBH6Bpxr90QXVSbgQpkXB0nVp39bXbLyA1F4oM8EqoCShjYV9acK5iB4wGIsZGOIYPZHnv71ZsoPRfghzM/v4VMVwVovI8D/gwD2RZVCUlOBwVEssmqd/xA0hihkyJdhNAli7KgJRxnqVTwNYUgeXUABtRAamEeJUM8qpKSpwSIhkVABoASZL5yP+pUO401ZOyaYFaU9fkzPAk/LAlu63UijbKJIGuY8GdZv1NQUIH5MjDc2p9MBAdGxAbES2NcnKbks2U3xTxoeaIVrteDwl33LISqVQaiZIOEsN0oN2bw+ym8DR83d9XmHD8egOpKb33NOVGk4IvyZQNoJm28SsKVeNcW3VmEzDwIYBsU9eBXc8MOdD3WXwHeVbeHe5hvKgHiRvXOjOSuS3rGk6h1fcI3b2Nqiai+ws1w3G4t+JxizUkXBVuTOsy/8VdNBh480yIgDIC75X+/k1uLM/9MG2ez+g2Txfuk2k/PZ2ZSk8p8i4u8I6ZCDUEKE1UKag1GLh5swHVBDKWqNn5RZ4Vk/d1rs5pqztW0hP6GutiLzM6p8umJ9+YKWTGPVbC8DSLv2GOYyPL6ak3ZguYRwvGJ+bP2nnw6GXr8LKu0b+Hf4gUth9aT5f0KXk8hXkFbZ488NCSJbWJZ19o+ylvw8n9PdKqcx1vXtl9tedA1Vdfww+fuKhoe0zviq075s9q2rI0ubtl8av53Ru+ndx5YuYjXcrij6cXI/5cGfXn9gdJ35GzRdt8ZudTp+r/qjtyuqr9ox3o5JTjj+9aeWzaoaOv8+81PFN6wCz9fE/+zyUf7K8uKZzz9/knl20/9vI6aSd3YfP4N86PrWkJtB8989oDFzp7Gi8fPl42Y03zpB8Pdu/75pOL8hVwprz9atV3b1VfA8yYd5U53awtx56uKIuuL700yjfzlxPvn937cHJ92SsVqz59Z+3+s951pS++/f0u81Ri67Ujm75Yu2DzvC8vnN5SfenwuFETfos/t3dS98FtXb3h+wct8zME8BAAAA==';
-    const catId = 20863;
-    const xhr = new XMLHttpRequest();
-    xhr.open(
-      'get',
-      'https://api.ebay.com/buy/browse/v1/item_summary/search?category_ids=' +
-        catId +
-        '&limit=20',
-      true,
-    );
-    xhr.setRequestHeader('Authorisation', 'Bearer ' + apiKey);
+    let itemsBeauty = [];
+    let itemsHousehold = [];
+    let itemsTech = [];
 
-    xhr.onload = function() {
-      var userResponse = JSON.parse(xhr.responseText);
-      console.log(userResponse);
-    };
+    fetch(
+      'https://api.ebay.com/buy/browse/v1/item_summary/search?category_ids=' +
+        21092 +
+        '&limit=20',
+      {
+        method: 'GET',
+        headers: {
+          Authorization:
+            'Bearer v^1.1#i^1#p^1#I^3#f^0#r^0#t^H4sIAAAAAAAAAOVXa4wTVRTebveZpQuJwAIilsE3zvROp9N2BtpNd5dHeewu25XIKm6mM3fo0M5MmXvLbhOjy8ojhhjhh+GfrooIaAyChKgJ+EODIZjgg9UoIaIxkPgHYgImxNU7s2XprgRYKEJi06Sdc8899/u+c869c0FfVe0TmxdvvuRxVZcP9IG+cpeLrQO1VZVz693lMyrLQJGDa6Dvob6Kfve5+UjSM1mxA6KsaSDo7dUzBhIdY4TKWYZoSkhDoiHpEIlYFhOx5ctEPwPErGViUzYzlDfeEqGgGk4G/FIwxLF8CCZZYjWuxOw0I5QkCxwf5mQY8IcDfIgn4wjlYNxAWDJwhPIDVqABR76dLBABKwYAEwoHuijvSmghzTSICwOoqANXdOZaRVivD1VCCFqYBKGi8djCRFss3rKgtXO+ryhWtKBDAks4h0Y/NZsK9K6UMjl4/WWQ4y0mcrIMEaJ80eEVRgcVY1fA3AJ8R2pe9qshNShwQIU8J5REyYWmpUv4+jBsi6bQquMqQgNrOH8jQYkYybVQxoWnVhIi3uK1f1bkpIymatCKUAuaYqti7e1UNCXJaQzlFD3yp72jhVbZoAL5YDJIh3lJ4gRZLSw0HK2g8piVmk1D0WzNkLfVxE2QoIajtAGCyBdpQ5zajDYrpmIbUbGG/isahoQuO6fDSczhlGGnFepECK/zeOMMjMzG2NKSOQxHIowdcCQiXZPNago1dtApxUL19KIIlcI4K/p8PT09TA/HmNYanx8A1vf08mUJOQV1ibJ97V53/LUbT6A1h4oMyUykiTifJVh6SakSAMYaKsqFeVbwF3QfDSs61vovQxFn3+iGKFWDBEJJJQBY0iasBAIQlqJDooUi9dk4YFLK07pkpSHOZiQZ0jKps5wOLU0ROV71c2EV0kpQUOmAoKp0kleCNKtCCCBMJmUh/H9qlJst9YRsZmG7mdHkfGkKvmTFbintkoXzCZjJEMPNVv01SSKb5J2nZ/f6eCjaMRAJImU1xq5tRjZ1nymRTc02dTuob4t3LJuN63oOS8kMjJdoQ7s7m9k16WnktL+nOJH8DSdSU4bPacbJJoPWy4wFkZmzyBsK02YfW51mGhpkE8CWmclAayV724m+x/I7zr3y1niX8KAeJ2/S6+ydrG05o5ES6r5L7O5uVjUJ31usWZ5ngyDEAXBbvJqdnHbm/4uzaDz0FpsIQ+UOvFf6Rl9yo2XOh+13HQT9rg/JPRn4wMPsHDC7yv1UhXvCDKRhyGiSyiBtjUHubhZk0jCflTSrvMr1zMx9e7qLrtUDq8G0kYt1rZutK7plg5lXRyrZiQ0eVgAc4FgiSwB0gTlXRyvYqRWTm97Z2eyZGni55f2vItN3v47uO+d6BXhGnFyuyrKKflfZwWndG1uPzlAHZk65PLW8Y/bWwZRqzlIe+6664dK8RT80Njbu/hMPbVnUINRUf7/svX2PnPR0nJzw1q5DP57bvq1m1eBFefCLNw/of1zemtpf9wC1ZF7T/X/vnbyh61TSXffp2saq419yR5TXVj0/tOFAPZ0+4/llQjK9/kz+1CT11dwH0fShb85HPnpp9Yo39k4Zurzi98/cwYFJvUsDi6a8vU48duhR4eLJd+sbDh/149TZF8JDZ5/ceEzUtz2788TSLcFNO05X76ifN7em4lvg+vn8x5/vUg//NXed2HF8yYPP7fpk94VtJ77e9FPodHvNxIUHPbPmwO1LHp99IXW+dpBbsGf6kRcb9v/m+1UfTt8/+R36I/AQAAA=',
+        },
+      },
+    )
+      .then(response => response.json())
+      .then(response =>
+        this.setState({
+          itemsBeauty: response.itemSummaries,
+        }),
+      );
+
+    fetch(
+      'https://api.ebay.com/buy/browse/v1/item_summary/search?category_ids=' +
+        21136 +
+        '&limit=20',
+      {
+        method: 'GET',
+        headers: {
+          Authorization:
+            'Bearer v^1.1#i^1#p^1#I^3#f^0#r^0#t^H4sIAAAAAAAAAOVXa4wTVRTebveZpQuJwAIilsE3zvROp9N2BtpNd5dHeewu25XIKm6mM3fo0M5MmXvLbhOjy8ojhhjhh+GfrooIaAyChKgJ+EODIZjgg9UoIaIxkPgHYgImxNU7s2XprgRYKEJi06Sdc8899/u+c869c0FfVe0TmxdvvuRxVZcP9IG+cpeLrQO1VZVz693lMyrLQJGDa6Dvob6Kfve5+UjSM1mxA6KsaSDo7dUzBhIdY4TKWYZoSkhDoiHpEIlYFhOx5ctEPwPErGViUzYzlDfeEqGgGk4G/FIwxLF8CCZZYjWuxOw0I5QkCxwf5mQY8IcDfIgn4wjlYNxAWDJwhPIDVqABR76dLBABKwYAEwoHuijvSmghzTSICwOoqANXdOZaRVivD1VCCFqYBKGi8djCRFss3rKgtXO+ryhWtKBDAks4h0Y/NZsK9K6UMjl4/WWQ4y0mcrIMEaJ80eEVRgcVY1fA3AJ8R2pe9qshNShwQIU8J5REyYWmpUv4+jBsi6bQquMqQgNrOH8jQYkYybVQxoWnVhIi3uK1f1bkpIymatCKUAuaYqti7e1UNCXJaQzlFD3yp72jhVbZoAL5YDJIh3lJ4gRZLSw0HK2g8piVmk1D0WzNkLfVxE2QoIajtAGCyBdpQ5zajDYrpmIbUbGG/isahoQuO6fDSczhlGGnFepECK/zeOMMjMzG2NKSOQxHIowdcCQiXZPNago1dtApxUL19KIIlcI4K/p8PT09TA/HmNYanx8A1vf08mUJOQV1ibJ97V53/LUbT6A1h4oMyUykiTifJVh6SakSAMYaKsqFeVbwF3QfDSs61vovQxFn3+iGKFWDBEJJJQBY0iasBAIQlqJDooUi9dk4YFLK07pkpSHOZiQZ0jKps5wOLU0ROV71c2EV0kpQUOmAoKp0kleCNKtCCCBMJmUh/H9qlJst9YRsZmG7mdHkfGkKvmTFbintkoXzCZjJEMPNVv01SSKb5J2nZ/f6eCjaMRAJImU1xq5tRjZ1nymRTc02dTuob4t3LJuN63oOS8kMjJdoQ7s7m9k16WnktL+nOJH8DSdSU4bPacbJJoPWy4wFkZmzyBsK02YfW51mGhpkE8CWmclAayV724m+x/I7zr3y1niX8KAeJ2/S6+ydrG05o5ES6r5L7O5uVjUJ31usWZ5ngyDEAXBbvJqdnHbm/4uzaDz0FpsIQ+UOvFf6Rl9yo2XOh+13HQT9rg/JPRn4wMPsHDC7yv1UhXvCDKRhyGiSyiBtjUHubhZk0jCflTSrvMr1zMx9e7qLrtUDq8G0kYt1rZutK7plg5lXRyrZiQ0eVgAc4FgiSwB0gTlXRyvYqRWTm97Z2eyZGni55f2vItN3v47uO+d6BXhGnFyuyrKKflfZwWndG1uPzlAHZk65PLW8Y/bWwZRqzlIe+6664dK8RT80Njbu/hMPbVnUINRUf7/svX2PnPR0nJzw1q5DP57bvq1m1eBFefCLNw/of1zemtpf9wC1ZF7T/X/vnbyh61TSXffp2saq419yR5TXVj0/tOFAPZ0+4/llQjK9/kz+1CT11dwH0fShb85HPnpp9Yo39k4Zurzi98/cwYFJvUsDi6a8vU48duhR4eLJd+sbDh/149TZF8JDZ5/ceEzUtz2788TSLcFNO05X76ifN7em4lvg+vn8x5/vUg//NXed2HF8yYPP7fpk94VtJ77e9FPodHvNxIUHPbPmwO1LHp99IXW+dpBbsGf6kRcb9v/m+1UfTt8/+R36I/AQAAA=',
+        },
+      },
+    )
+      .then(response => response.json())
+      .then(response =>
+        this.setState({
+          itemsHousehold: response.itemSummaries,
+        }),
+      );
+
+    fetch(
+      'https://api.ebay.com/buy/browse/v1/item_summary/search?category_ids=' +
+        13595 +
+        '&limit=20',
+      {
+        method: 'GET',
+        headers: {
+          Authorization:
+            'Bearer v^1.1#i^1#p^1#I^3#f^0#r^0#t^H4sIAAAAAAAAAOVXa4wTVRTebveZpQuJwAIilsE3zvROp9N2BtpNd5dHeewu25XIKm6mM3fo0M5MmXvLbhOjy8ojhhjhh+GfrooIaAyChKgJ+EODIZjgg9UoIaIxkPgHYgImxNU7s2XprgRYKEJi06Sdc8899/u+c869c0FfVe0TmxdvvuRxVZcP9IG+cpeLrQO1VZVz693lMyrLQJGDa6Dvob6Kfve5+UjSM1mxA6KsaSDo7dUzBhIdY4TKWYZoSkhDoiHpEIlYFhOx5ctEPwPErGViUzYzlDfeEqGgGk4G/FIwxLF8CCZZYjWuxOw0I5QkCxwf5mQY8IcDfIgn4wjlYNxAWDJwhPIDVqABR76dLBABKwYAEwoHuijvSmghzTSICwOoqANXdOZaRVivD1VCCFqYBKGi8djCRFss3rKgtXO+ryhWtKBDAks4h0Y/NZsK9K6UMjl4/WWQ4y0mcrIMEaJ80eEVRgcVY1fA3AJ8R2pe9qshNShwQIU8J5REyYWmpUv4+jBsi6bQquMqQgNrOH8jQYkYybVQxoWnVhIi3uK1f1bkpIymatCKUAuaYqti7e1UNCXJaQzlFD3yp72jhVbZoAL5YDJIh3lJ4gRZLSw0HK2g8piVmk1D0WzNkLfVxE2QoIajtAGCyBdpQ5zajDYrpmIbUbGG/isahoQuO6fDSczhlGGnFepECK/zeOMMjMzG2NKSOQxHIowdcCQiXZPNago1dtApxUL19KIIlcI4K/p8PT09TA/HmNYanx8A1vf08mUJOQV1ibJ97V53/LUbT6A1h4oMyUykiTifJVh6SakSAMYaKsqFeVbwF3QfDSs61vovQxFn3+iGKFWDBEJJJQBY0iasBAIQlqJDooUi9dk4YFLK07pkpSHOZiQZ0jKps5wOLU0ROV71c2EV0kpQUOmAoKp0kleCNKtCCCBMJmUh/H9qlJst9YRsZmG7mdHkfGkKvmTFbintkoXzCZjJEMPNVv01SSKb5J2nZ/f6eCjaMRAJImU1xq5tRjZ1nymRTc02dTuob4t3LJuN63oOS8kMjJdoQ7s7m9k16WnktL+nOJH8DSdSU4bPacbJJoPWy4wFkZmzyBsK02YfW51mGhpkE8CWmclAayV724m+x/I7zr3y1niX8KAeJ2/S6+ydrG05o5ES6r5L7O5uVjUJ31usWZ5ngyDEAXBbvJqdnHbm/4uzaDz0FpsIQ+UOvFf6Rl9yo2XOh+13HQT9rg/JPRn4wMPsHDC7yv1UhXvCDKRhyGiSyiBtjUHubhZk0jCflTSrvMr1zMx9e7qLrtUDq8G0kYt1rZutK7plg5lXRyrZiQ0eVgAc4FgiSwB0gTlXRyvYqRWTm97Z2eyZGni55f2vItN3v47uO+d6BXhGnFyuyrKKflfZwWndG1uPzlAHZk65PLW8Y/bWwZRqzlIe+6664dK8RT80Njbu/hMPbVnUINRUf7/svX2PnPR0nJzw1q5DP57bvq1m1eBFefCLNw/of1zemtpf9wC1ZF7T/X/vnbyh61TSXffp2saq419yR5TXVj0/tOFAPZ0+4/llQjK9/kz+1CT11dwH0fShb85HPnpp9Yo39k4Zurzi98/cwYFJvUsDi6a8vU48duhR4eLJd+sbDh/149TZF8JDZ5/ceEzUtz2788TSLcFNO05X76ifN7em4lvg+vn8x5/vUg//NXed2HF8yYPP7fpk94VtJ77e9FPodHvNxIUHPbPmwO1LHp99IXW+dpBbsGf6kRcb9v/m+1UfTt8/+R36I/AQAAA=',
+        },
+      },
+    )
+      .then(response => response.json())
+      .then(response =>
+        this.setState({
+          itemsTech: response.itemSummaries,
+        }),
+      );
   }
+
+  handleChangeCategoryId(categoryId) {}
 
   handleLogin() {
     console.log('handle login ran');
@@ -81,23 +130,15 @@ class Home extends Component {
       isLogin: false,
     });
   }
-  async printAllItems() {
-    console.log('function call');
-    try {
-      console.log(await searchForItems('Earphones'));
-      console.log('function called');
-    } catch (e) {
-      console.log(e.response);
-    }
-  }
 
   render() {
-    const {babelLoaded} = this.state;
-    const {data, location} = this.props;
+    const {babelLoaded, itemsBeauty, itemsHousehold, itemsTech} = this.state;
+    const {data, location, items, next} = this.props;
     const {codeExamples, examples, marketing} = data;
     const {isLogin} = this.state;
     const {handleLogin} = this.handleLogin;
     const {handleLogout} = this.handleLogout;
+    console.log('in render');
 
     const code = codeExamples.edges.reduce((lookup, {node}) => {
       lookup[node.mdAbsolutePath] = node;
@@ -204,7 +245,11 @@ class Home extends Component {
           </header>
           <BuyerListingPage />
 
-          {/* <SellerListingPage /> */}
+          <SellerListingPage
+            itemsBeauty={itemsBeauty}
+            itemsHousehold={itemsHousehold}
+            itemsTech={itemsTech}
+          />
 
           <section
             css={{
