@@ -1,5 +1,4 @@
 import Axios from 'axios';
-import OAuth from 'client-oauth2';
 
 const appID = 'hacktech-hacktech-PRD-f16de56b6-85aa39cf';
 const authToken =
