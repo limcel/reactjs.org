@@ -198,7 +198,9 @@ class Home extends Component {
                       color: colors.white,
                       textAlign: 'center',
                       margin: 0,
-                      fontSize: 45,
+                      fontSize: 60,
+                      fontWeight: 400,
+                      fontFamily: 'Helvetica Neue',
                       letterSpacing: '0.01em',
                       [media.size('xsmall')]: {
                         fontSize: 30,
@@ -213,10 +215,11 @@ class Home extends Component {
                     css={{
                       paddingTop: 15,
                       textAlign: 'center',
-                      fontSize: 24,
+                      fontSize: 40,
                       letterSpacing: '0.01em',
                       fontWeight: 200,
                       color: colors.white,
+                      marginTop: '3%',
                       [media.size('xsmall')]: {
                         fontSize: 16,
                         maxWidth: '12em',
@@ -226,10 +229,10 @@ class Home extends Component {
 
                       [media.greaterThan('xlarge')]: {
                         paddingTop: 20,
-                        fontSize: 30,
+                        fontSize: 40,
                       },
                     }}>
-                    Tech
+                    Technology
                   </p>
                   <Flex
                     valign="center"
