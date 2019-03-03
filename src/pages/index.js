@@ -18,7 +18,8 @@ import loadScript from 'utils/loadScript';
 import createOgUrl from 'utils/createOgUrl';
 import {babelURL} from 'site-constants';
 import logoWhiteSvg from 'icons/logo-white.svg';
-
+import {Button} from '@material-ui/core';
+import {searchItems, getClientCredentials} from 'api/axios.js';
 class Home extends Component {
   state = {
     babelLoaded: false,
@@ -47,12 +48,17 @@ class Home extends Component {
       return lookup;
     }, {});
 
+    const printAllItems = async () => {
+      console.log(await getClientCredentials());
+    };
+
     return (
       <Layout location={location}>
         <TitleAndMetaTags
           title="React &ndash; A JavaScript library for building user interfaces"
           ogUrl={createOgUrl('index.html')}
         />
+        <Button onClick={printAllItems}>Hi</Button>
         <div css={{width: '100%'}}>
           <header
             css={{
@@ -163,7 +169,6 @@ class Home extends Component {
           </header>
 
           <BuyerListingPage />
-
         </div>
       </Layout>
     );
