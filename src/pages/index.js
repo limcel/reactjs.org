@@ -24,9 +24,19 @@ import bannerImage from '../images/apple_items.jpg';
 import {white} from 'ansi-colors';
 import BuyerListingPage from 'components/BuyerListingPage';
 import SellerListingPage from 'components/SellerListingPage';
-import delay from 'lodash/delay';
+import firebase from 'firebase';
 
 import {buyFlow} from 'api/buyFlow';
+
+const config = {
+  apiKey: 'AIzaSyBg6o5rZBWF0yUkNfxSxoj-pCjP3ATK5A4',
+  authDomain: 'hacktech2019-42079.firebaseapp.com',
+  databaseURL: 'https://hacktech2019-42079.firebaseio.com',
+  projectId: 'hacktech2019-42079',
+  storageBucket: 'hacktech2019-42079.appspot.com',
+  messagingSenderId: '319199126538',
+};
+
 class Home extends Component {
   state = {
     babelLoaded: false,
@@ -50,17 +60,10 @@ class Home extends Component {
         console.error('Babel failed to load.');
       },
     );
-    await buyFlow();
-    // console.log('initiate');
-    // console.log(await initiateCheckoutSession());
-    // console.log('initiate');
   }
 
   componentWillMount() {
-    let itemsBeauty = [];
-    let itemsHousehold = [];
-    let itemsTech = [];
-
+    firebase.initializeApp(config);
     fetch(
       'https://api.ebay.com/buy/browse/v1/item_summary/search?category_ids=' +
         21092 +
@@ -122,14 +125,12 @@ class Home extends Component {
   handleChangeCategoryId(categoryId) {}
 
   handleLogin() {
-    console.log('handle login ran');
     this.setState({
       isLogin: true,
     });
   }
 
   handleLogout() {
-    console.log('handle logout ran');
     this.setState({
       isLogin: false,
     });
@@ -142,7 +143,6 @@ class Home extends Component {
     const {isLogin} = this.state;
     const {handleLogin} = this.handleLogin;
     const {handleLogout} = this.handleLogout;
-    console.log('in render');
 
     const code = codeExamples.edges.reduce((lookup, {node}) => {
       lookup[node.mdAbsolutePath] = node;
@@ -247,7 +247,7 @@ class Home extends Component {
               </div>
             </div>
           </header>
-          {/* <BuyerListingPage /> */}
+          <BuyerListingPage />
 
           <SellerListingPage
             itemsBeauty={itemsBeauty}
