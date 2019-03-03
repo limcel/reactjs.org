@@ -21,7 +21,7 @@ function BuyerListingPage(props) {
     const {title, image, price, itemHref} = itemSummary;
     const imageUrl = image.imageUrl;
     const card = (
-      <Card className={classes.card} key={title}>
+      <Card className={classes.card}>
         <CardActionArea>
           <CardMedia
             component="img"
@@ -46,7 +46,7 @@ function BuyerListingPage(props) {
       </Card>
     );
     return (
-      <Grid item xs={3}>
+      <Grid item xs={3} key={title}>
         {card}
       </Grid>
     );

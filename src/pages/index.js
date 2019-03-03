@@ -26,7 +26,6 @@ import beautyImage from '../images/beauty.jpg';
 import {white} from 'ansi-colors';
 import BuyerListingPage from 'components/BuyerListingPage';
 import SellerListingPage from 'components/SellerListingPage';
-import {buyFlow} from 'api/buyFlow';
 import {itemsRef} from 'api/firebase';
 import {themesRef} from '../api/firebase';
 
@@ -272,13 +271,16 @@ class Home extends Component {
                         paddingTop: 65,
                       },
                     }}>
-                    <CtaItem>
-                      <ButtonLink
-                        to="/docs/getting-started.html"
-                        type="primary">
-                        Buy
-                      </ButtonLink>
-                    </CtaItem>
+                    {this.state.isAdmin ? (
+                      <CtaItem>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          size="large">
+                          Purchase stock
+                        </Button>
+                      </CtaItem>
+                    ) : null}
                   </Flex>
                 </Container>
               </div>
