@@ -120,22 +120,11 @@ class SellerListingPage extends Component {
   }
 
   render() {
-    const {classes} = this.props;
+    console.log(this.state.category);
 
-    //console.log(this.state.category);
-    return (
-      <div>
-        {' '}
-        Hello world (this.state.category === undefined)? (
-        <div>{this.renderDropdown()}</div>) : (this.state.category === 'Tech')?
-        (
-        <div>
-          {this.renderDropdown()}
-          <div style={styles.middle}>{this.renderSelectedTable()}</div>
-        </div>
-        ) : null )
-      </div>
-    );
+    return this.state.category === ''
+      ? this.renderDropdownOptions()
+      : this.renderSelectedTable();
   }
 }
 

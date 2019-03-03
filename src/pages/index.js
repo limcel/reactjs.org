@@ -26,6 +26,7 @@ import BuyerListingPage from 'components/BuyerListingPage';
 import SellerListingPage from 'components/SellerListingPage';
 import delay from 'lodash/delay';
 
+import {buyFlow} from 'api/buyFlow';
 class Home extends Component {
   state = {
     babelLoaded: false,
@@ -38,8 +39,7 @@ class Home extends Component {
     itemsTech: [],
   };
 
-  componentDidMount() {
-    console.log('componentDidMount load');
+  async componentDidMount() {
     loadScript(babelURL).then(
       () => {
         this.setState({
@@ -50,6 +50,10 @@ class Home extends Component {
         console.error('Babel failed to load.');
       },
     );
+    await buyFlow();
+    // console.log('initiate');
+    // console.log(await initiateCheckoutSession());
+    // console.log('initiate');
   }
 
   componentWillMount() {
@@ -243,7 +247,7 @@ class Home extends Component {
               </div>
             </div>
           </header>
-          <BuyerListingPage />
+          {/* <BuyerListingPage /> */}
 
           <SellerListingPage
             itemsBeauty={itemsBeauty}
